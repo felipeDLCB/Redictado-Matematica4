@@ -1,0 +1,17 @@
+# ── IA / Claude ──
+.claude/
+docs/superpowers/
+
+# ── Python ──
+__pycache__/
+*.pyc
+*.pyo
+.ruff_cache/
+
+# ── Manim media (regenerable) ──
+**/media/
+**/slides/
+
+# ── OS ──
+.DS_Store
+Thumbs.db
