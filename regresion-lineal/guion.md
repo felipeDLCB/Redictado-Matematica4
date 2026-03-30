@@ -183,7 +183,8 @@
 
 ---
 
-## INTEGRANTE 2 — Incisos b) y d)
+## INTEGRANTE 2 — Incisos b) y c)
+
 
 ### Slide 12-13 — Predicción para x = 170
 
@@ -205,45 +206,15 @@
 
 ---
 
-### Slide 14 — Significado de β̂₁
-
-*Se ve: sobre la recta, un "escalón" que muestra Δx y Δy.*
-
-> Ahora pasemos al inciso d), que nos pregunta cuánto aumenta el tiempo de transmisión por cada byte adicional. La respuesta está justamente en la pendiente β̂₁.
->
-> Fíjense en el gráfico: el triángulo que se forma sobre la recta muestra que cuando x aumenta — ese es el segmento horizontal — y sube un poco — ese es el segmento vertical. La relación entre esos dos cambios es la pendiente.
-
-**[Avanzar]**
-
----
-
-### Slide 15 — Interpretación física
-
-*Se ve: β̂₁ = 0,3081 ms/byte con texto explicativo.*
-
-> β̂₁ = 0,3081 milisegundos por byte. Esto significa que **por cada byte adicional en la longitud del paquete, el tiempo de transmisión aumenta en promedio 0,3081 milisegundos**.
->
-> Ojo: esto es una estimación, no un valor exacto. Es el cambio promedio estimado a partir de nuestros datos.
-
-**[Avanzar]**
-
----
-
-## INTEGRANTE 3 — Inciso c) + Conclusión
-
-### Slide 16 — ¿Y si x = 500?
+### Slide 14-15 — ¿Y si x = 500?
 
 *Se ve: el gráfico se extiende hacia la derecha, la recta se prolonga con línea punteada, aparece una X roja en x=500.*
 
-> Gracias. Ahora viene una pregunta muy importante: el inciso c) nos pregunta si podemos usar nuestra recta para predecir el tiempo cuando la longitud es 500 bytes.
+> Ahora viene una pregunta muy importante: el inciso c) nos pregunta si podemos usar nuestra recta para predecir el tiempo cuando la longitud es 500 bytes.
 >
 > Veamos qué pasa si extendemos el gráfico. Nuestros datos llegan hasta x=300, pero 500 está mucho más allá. La recta se puede prolongar, sí — matemáticamente no hay problema — pero eso no significa que la predicción sea confiable.
 
 **[Avanzar]** *(aparecen las zonas verde y roja)*
-
----
-
-### Slide 17 — Interpolación vs Extrapolación
 
 *Se ve: zona verde "Interpolación" entre 100-300, zona roja "Extrapolación" más allá de 300, "500 ∉ (100, 300)".*
 
@@ -254,6 +225,32 @@
 > Entonces la respuesta al inciso c) es **no**: no es recomendable usar la recta para predecir con x=500, porque 500 no pertenece al intervalo (100, 300) y estaríamos extrapolando.
 
 **[Avanzar]** *(aparece explicación en texto)*
+
+**[Avanzar]**
+
+---
+
+## INTEGRANTE 3 — Inciso d) + Conclusión
+
+### Slide 16 — Significado de β̂₁
+
+*Se ve: se reconstruye el scatter plot con la recta de regresión, aparece un "escalón" sobre la recta que muestra Δx y Δy.*
+
+> Gracias. Ahora pasemos al inciso d), que nos pregunta cuánto aumenta el tiempo de transmisión por cada byte adicional. La respuesta está justamente en la pendiente β̂₁.
+>
+> Fíjense en el gráfico: el triángulo que se forma sobre la recta muestra que cuando x aumenta — ese es el segmento horizontal — y sube un poco — ese es el segmento vertical. La relación entre esos dos cambios es la pendiente.
+
+**[Avanzar]**
+
+---
+
+### Slide 17 — Interpretación física
+
+*Se ve: β̂₁ = 0,3081 ms/byte con texto explicativo.*
+
+> β̂₁ = 0,3081 milisegundos por byte. Esto significa que **por cada byte adicional en la longitud del paquete, el tiempo de transmisión aumenta en promedio 0,3081 milisegundos**.
+>
+> Ojo: esto es una estimación, no un valor exacto. Es el cambio promedio estimado a partir de nuestros datos.
 
 **[Avanzar]**
 

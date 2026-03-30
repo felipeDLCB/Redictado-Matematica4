@@ -691,60 +691,6 @@ class RegresionLinealSlides(Slide):
         )))
 
     # ══════════════════════════════════════════════════════════════
-    #  INCISO d) — Interpretación de la pendiente
-    # ══════════════════════════════════════════════════════════════
-
-    def slide_pendiente(self):
-        header = Text("d) Interpretación de la pendiente", font_size=30, color=CYAN, weight=BOLD)
-        header.to_edge(UP, buff=0.4)
-
-        # Escalón visual sobre la recta
-        x_start = 180
-        y_start = reg_line(x_start)
-        x_end = x_start + 50  # Δx visual exagerado para que se vea
-        y_end = reg_line(x_end)
-
-        p1 = self.axes_main.c2p(x_start, y_start)
-        p2 = self.axes_main.c2p(x_end, y_start)    # horizontal
-        p3 = self.axes_main.c2p(x_end, y_end)       # vertical
-
-        h_seg = Line(p1, p2, color=BLUE, stroke_width=3)
-        v_seg = Line(p2, p3, color=GREEN_A, stroke_width=3)
-
-        dx_label = MathTex(r"\Delta x", font_size=22, color=BLUE)
-        dx_label.next_to(h_seg, DOWN, buff=0.15)
-        dy_label = MathTex(r"\Delta y", font_size=22, color=GREEN_A)
-        dy_label.next_to(v_seg, RIGHT, buff=0.15)
-
-        self.play(Write(header))
-        self.play(Create(h_seg), Create(v_seg))
-        self.play(FadeIn(dx_label), FadeIn(dy_label))
-        self.next_slide()
-
-        interp = MathTex(
-            r"\hat{\beta}_1 = 0{,}3081 \; \frac{\text{ms}}{\text{byte}}",
-            font_size=36, color=GREEN_A,
-        )
-        interp.to_edge(DOWN, buff=0.8)
-        interp_bg = BackgroundRectangle(interp, color=BG, fill_opacity=0.85, buff=0.15)
-
-        texto = Text(
-            "Por cada byte adicional, el tiempo\nde transmisión aumenta 0,3081 ms",
-            font_size=22, color=WHITE_S, line_spacing=1.3,
-        )
-        texto.next_to(interp, UP, buff=0.3)
-        texto_bg = BackgroundRectangle(texto, color=BG, fill_opacity=0.85, buff=0.1)
-
-        self.play(FadeIn(interp_bg), Write(interp))
-        self.play(FadeIn(texto_bg), FadeIn(texto))
-        self.next_slide()
-
-        self.play(FadeOut(VGroup(
-            header, h_seg, v_seg, dx_label, dy_label,
-            interp_bg, interp, texto_bg, texto,
-        )))
-
-    # ══════════════════════════════════════════════════════════════
     #  INCISO c) — Extrapolación
     # ══════════════════════════════════════════════════════════════
 
@@ -855,6 +801,76 @@ class RegresionLinealSlides(Slide):
         )))
 
     # ══════════════════════════════════════════════════════════════
+    #  INCISO d) — Interpretación de la pendiente
+    # ══════════════════════════════════════════════════════════════
+
+    def slide_pendiente(self):
+        header = Text("d) Interpretación de la pendiente", font_size=30, color=CYAN, weight=BOLD)
+        header.to_edge(UP, buff=0.4)
+
+        # Reconstruir scatter plot (fue destruido por slide_extrapolacion)
+        axes, labels = self.build_axes()
+        axes.shift(LEFT * 0.5)
+        labels.shift(LEFT * 0.5)
+        dots = self.data_dots(axes, color=BLUE, radius=0.07)
+        reg_graph = axes.plot(
+            lambda x: reg_line(x), x_range=[60, 330],
+            color=CYAN, stroke_width=3,
+        )
+
+        self.play(Write(header), Create(axes), FadeIn(labels))
+        self.play(
+            LaggedStart(*[GrowFromCenter(d) for d in dots], lag_ratio=0.05),
+            Create(reg_graph),
+        )
+
+        # Escalón visual sobre la recta
+        x_start = 180
+        y_start = reg_line(x_start)
+        x_end = x_start + 50  # Δx visual exagerado para que se vea
+        y_end = reg_line(x_end)
+
+        p1 = axes.c2p(x_start, y_start)
+        p2 = axes.c2p(x_end, y_start)    # horizontal
+        p3 = axes.c2p(x_end, y_end)       # vertical
+
+        h_seg = Line(p1, p2, color=BLUE, stroke_width=3)
+        v_seg = Line(p2, p3, color=GREEN_A, stroke_width=3)
+
+        dx_label = MathTex(r"\Delta x", font_size=22, color=BLUE)
+        dx_label.next_to(h_seg, DOWN, buff=0.15)
+        dy_label = MathTex(r"\Delta y", font_size=22, color=GREEN_A)
+        dy_label.next_to(v_seg, RIGHT, buff=0.15)
+
+        self.play(Create(h_seg), Create(v_seg))
+        self.play(FadeIn(dx_label), FadeIn(dy_label))
+        self.next_slide()
+
+        interp = MathTex(
+            r"\hat{\beta}_1 = 0{,}3081 \; \frac{\text{ms}}{\text{byte}}",
+            font_size=36, color=GREEN_A,
+        )
+        interp.to_edge(DOWN, buff=0.8)
+        interp_bg = BackgroundRectangle(interp, color=BG, fill_opacity=0.85, buff=0.15)
+
+        texto = Text(
+            "Por cada byte adicional, el tiempo\nde transmisión aumenta 0,3081 ms",
+            font_size=22, color=WHITE_S, line_spacing=1.3,
+        )
+        texto.next_to(interp, UP, buff=0.3)
+        texto_bg = BackgroundRectangle(texto, color=BG, fill_opacity=0.85, buff=0.1)
+
+        self.play(FadeIn(interp_bg), Write(interp))
+        self.play(FadeIn(texto_bg), FadeIn(texto))
+        self.next_slide()
+
+        self.play(FadeOut(VGroup(
+            header, axes, labels, dots, reg_graph,
+            h_seg, v_seg, dx_label, dy_label,
+            interp_bg, interp, texto_bg, texto,
+        )))
+
+    # ══════════════════════════════════════════════════════════════
     #  CONCLUSIÓN
     # ══════════════════════════════════════════════════════════════
 
@@ -917,11 +933,11 @@ class RegresionLinealSlides(Slide):
         # Inciso b)
         self.slide_prediccion_170()
 
-        # Inciso d)
-        self.slide_pendiente()
-
         # Inciso c)
         self.slide_extrapolacion()
+
+        # Inciso d)
+        self.slide_pendiente()
 
         # Conclusión
         self.slide_conclusion()
