@@ -31,6 +31,14 @@ class NumerosRacionalesSlides(Slide):
     def setup(self):
         self.camera.background_color = ManimColor(BG)
 
+    def play(self, *args, **kwargs):
+        """Todas las animaciones corren a 1.5× velocidad (run_time × 0.66)."""
+        if "run_time" in kwargs:
+            kwargs["run_time"] = kwargs["run_time"] * 0.66
+        else:
+            kwargs["run_time"] = 0.66
+        super().play(*args, **kwargs)
+
     # ─── helpers ───────────────────────────────────────────────────
     def section_title(self, text, sub=None):
         t = Text(text, font_size=40, color=CYAN, weight=BOLD)
