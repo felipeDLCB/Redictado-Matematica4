@@ -190,17 +190,17 @@
 
 *Se ve: sobre el gráfico, aparece una línea vertical punteada en x=170 que sube hasta tocar la recta.*
 
-> Gracias. Ahora que ya tenemos la recta, la podemos usar para hacer predicciones. El inciso b) nos pide: ¿cuánto tardaría la transmisión si la longitud del paquete es de 170 bytes?
+> Gracias. Ahora que ya tenemos la recta de regresión ajustada, podemos ponerla a trabajar y usarla para lo que fue diseñada: **hacer predicciones**. El inciso b) nos plantea una situación concreta: si tenemos un paquete de 170 bytes de longitud, ¿cuánto tiempo estimamos que tardará en transmitirse?
 >
-> Lo primero que tenemos que verificar es que 170 está dentro del rango de nuestros datos, que va de 100 a 300. Como 170 sí está dentro, podemos usar la recta con confianza. Esto se llama **interpolación**.
+> Pero antes de sustituir directamente en la ecuación, hay un paso previo muy importante que no podemos saltarnos. Tenemos que verificar que el valor de x que queremos predecir — en este caso, 170 — esté **dentro del rango de los datos que usamos para construir el modelo**. Nuestras observaciones van desde 100 hasta 300 bytes. Como 170 cae cómodamente dentro de ese intervalo, estamos en zona segura. Esto es lo que en estadística se llama **interpolación**: predecir dentro del rango observado, donde el modelo tiene respaldo empírico.
 
 **[Avanzar]** *(aparece el cálculo: ŷ = 0,3081 × 170 + 27,3275)*
 
-> Reemplazamos en la ecuación: 0,3081 por 170 más 27,3275...
+> Ahora sí, reemplazamos en nuestra ecuación de regresión. Tomamos la pendiente, 0,3081, la multiplicamos por 170 — que es la longitud del paquete — y le sumamos el intercepto, 27,3275...
 
 *(aparece el resultado: 79,7055 ms y la nota de interpolación válida)*
 
-> ...y obtenemos **79,7055 milisegundos**. Esa es nuestra estimación del tiempo de transmisión para un paquete de 170 bytes.
+> ...y obtenemos un valor estimado de **79,7055 milisegundos**. Esa es nuestra mejor predicción del tiempo de transmisión para un paquete de 170 bytes, según el modelo lineal que ajustamos. Es importante recordar que este es un valor **estimado** — no exacto — porque la recta es una aproximación de la tendencia general de los datos, no una ley perfecta.
 
 **[Avanzar]**
 
@@ -210,19 +210,21 @@
 
 *Se ve: el gráfico se extiende hacia la derecha, la recta se prolonga con línea punteada, aparece una X roja en x=500.*
 
-> Ahora viene una pregunta muy importante: el inciso c) nos pregunta si podemos usar nuestra recta para predecir el tiempo cuando la longitud es 500 bytes.
+> Ahora viene una pregunta que parece inocente pero que en realidad es una de las trampas más comunes en regresión lineal. El inciso c) nos pregunta: ¿podemos usar nuestra recta para predecir el tiempo de transmisión cuando la longitud del paquete es de 500 bytes?
 >
-> Veamos qué pasa si extendemos el gráfico. Nuestros datos llegan hasta x=300, pero 500 está mucho más allá. La recta se puede prolongar, sí — matemáticamente no hay problema — pero eso no significa que la predicción sea confiable.
+> A primera vista, uno podría pensar "sí, claro, solo reemplazo x=500 en la ecuación y listo". Y efectivamente, matemáticamente se puede hacer — la ecuación no te va a dar error. Pero que se **pueda** calcular no significa que el resultado sea **confiable**. Veamos por qué.
+>
+> Si extendemos el gráfico hacia la derecha, nuestros datos solo llegan hasta x=300. Desde 300 hasta 500 no tenemos ninguna observación. La recta se puede prolongar, sí, pero estamos asumiendo que la relación lineal se mantiene en una zona donde **no tenemos evidencia**.
 
 **[Avanzar]** *(aparecen las zonas verde y roja)*
 
 *Se ve: zona verde "Interpolación" entre 100-300, zona roja "Extrapolación" más allá de 300, "500 ∉ (100, 300)".*
 
-> Acá está la clave. Cuando predecimos dentro del rango de datos observados — de 100 a 300 bytes — estamos haciendo **interpolación**, que es confiable. Pero cuando predecimos fuera de ese rango, estamos haciendo **extrapolación**, y eso es peligroso.
+> Fíjense en las dos zonas que aparecen en el gráfico. La zona verde, entre 100 y 300 bytes, es la zona de **interpolación** — acá es donde nuestro modelo tiene datos reales que lo respaldan, y las predicciones son razonablemente confiables. La zona roja, más allá de 300, es la zona de **extrapolación** — territorio desconocido para nuestro modelo.
 >
-> ¿Por qué? Porque nuestro modelo solo "conoce" lo que pasa entre 100 y 300 bytes. No sabemos si la relación lineal se mantiene más allá. Podría ser que a partir de cierta longitud, el tiempo crezca de forma exponencial, o que se estabilice, o que cambie por completo. No tenemos datos para saberlo.
+> ¿Por qué la extrapolación es peligrosa? Porque nuestro modelo solo "aprendió" el comportamiento de los datos entre 100 y 300 bytes. Fuera de ese rango, podrían pasar muchas cosas: la relación podría dejar de ser lineal, el tiempo podría crecer de forma exponencial por congestión en la red, o podría estabilizarse por algún mecanismo de compresión. Simplemente **no lo sabemos** porque no tenemos datos que nos lo digan.
 >
-> Entonces la respuesta al inciso c) es **no**: no es recomendable usar la recta para predecir con x=500, porque 500 no pertenece al intervalo (100, 300) y estaríamos extrapolando.
+> Por lo tanto, la respuesta al inciso c) es clara: **no**, no es recomendable usar la recta para predecir con x=500. El valor 500 no pertenece al intervalo (100, 300), y estaríamos haciendo una extrapolación que podría darnos resultados muy alejados de la realidad.
 
 **[Avanzar]** *(aparece explicación en texto)*
 
