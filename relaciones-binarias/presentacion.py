@@ -65,6 +65,43 @@ class RelacionesEquivalenciaSlides(Slide):
         box = SurroundingRectangle(tex, color=color, buff=0.25, corner_radius=0.1)
         return VGroup(box, tex)
 
+    # ─── helpers visuales ──────────────────────────────────────────
+
+    def self_loop(self, dot, color=None, size=0.22, angle=-TAU + 1.0):
+        """Flecha circular que vuelve al mismo punto (self-loop)."""
+        c = color if color is not None else YELLOW_A
+        center = dot.get_center()
+        start = center + UP * 0.10 + RIGHT * 0.08
+        end = center + UP * 0.10 + LEFT * 0.08
+        loop = CurvedArrow(
+            start, end,
+            angle=angle,
+            color=c,
+            tip_length=0.12,
+            stroke_width=2.5,
+        )
+        return loop
+
+    def dot_labeled(self, label, pos=ORIGIN, color=CYAN, radius=0.12,
+                    label_dir=DOWN, font_size=22, label_color=None):
+        """Un Dot con label."""
+        d = Dot(pos, color=color, radius=radius)
+        lc = label_color if label_color is not None else WHITE_S
+        if isinstance(label, str) and label.startswith("$"):
+            lbl = MathTex(label.strip("$"), font_size=font_size + 4, color=lc)
+        else:
+            lbl = Text(str(label), font_size=font_size, color=lc)
+        lbl.next_to(d, label_dir, buff=0.12)
+        return VGroup(d, lbl)
+
+    def set_ellipse(self, group, color=BLUE, buff=0.45, stroke_width=2):
+        """Elipse que envuelve a un grupo de mobjects (representando un conjunto)."""
+        w = group.width + buff * 2
+        h = group.height + buff * 2
+        el = Ellipse(width=w, height=h, color=color, stroke_width=stroke_width)
+        el.move_to(group.get_center())
+        return el
+
     # ══════════════════════════════════════════════════════════════
     #  SLIDE 1 — Título
     # ══════════════════════════════════════════════════════════════
@@ -242,42 +279,10 @@ class RelacionesEquivalenciaSlides(Slide):
 
         self.play(FadeOut(VGroup(header, ex1)))
 
-        # ── Ejemplo 2: rectas paralelas ──
-        header2 = self.header_text("Ejemplo 2: Rectas paralelas", font_size=32)
+        # ── Ejemplo 2: la identidad ──
+        header_id = self.header_text("Ejemplo 2: La relación Identidad", font_size=32)
 
-        ex2_desc = Text(
-            "En el conjunto de las rectas del plano, la relación\n"
-            "\"L es paralela a M\" es de equivalencia.",
-            font_size=22, color=WHITE_S, line_spacing=1.4,
-        )
-        ex2_desc.next_to(header2, DOWN, buff=0.4)
-
-        ex2_props = VGroup(
-            MathTex(r"\text{Reflexiva: toda recta es paralela a sí misma}", font_size=24, color=WHITE_S),
-            MathTex(r"\text{Simétrica: si } L \parallel M \text{ entonces } M \parallel L", font_size=24, color=WHITE_S),
-            MathTex(r"\text{Transitiva: si } L \parallel M \text{ y } M \parallel N \text{ entonces } L \parallel N", font_size=24, color=WHITE_S),
-        ).arrange(DOWN, buff=0.2, aligned_edge=LEFT)
-        ex2_props.next_to(ex2_desc, DOWN, buff=0.35)
-
-        nota2 = Text(
-            "Dos rectas son paralelas si tienen igual pendiente.",
-            font_size=18, color=GRAY,
-        )
-        nota2.next_to(ex2_props, DOWN, buff=0.3)
-
-        self.play(Write(header2))
-        self.play(FadeIn(ex2_desc, shift=UP * 0.2))
-        self.next_slide()
-        self.play(FadeIn(ex2_props, shift=UP * 0.2))
-        self.play(FadeIn(nota2, shift=UP * 0.1))
-        self.next_slide()
-
-        self.play(FadeOut(VGroup(header2, ex2_desc, ex2_props, nota2)))
-
-        # ── Ejemplo 3: la identidad ──
-        header3 = self.header_text("Ejemplo 3: La relación Identidad", font_size=32)
-
-        ex3_desc = VGroup(
+        ex_id = VGroup(
             Text(
                 "La relación Identidad sobre un conjunto A:",
                 font_size=22, color=WHITE_S,
@@ -293,13 +298,13 @@ class RelacionesEquivalenciaSlides(Slide):
                 font_size=22, color=WHITE_S, line_spacing=1.4,
             ),
         ).arrange(DOWN, buff=0.3)
-        ex3_desc.next_to(header3, DOWN, buff=0.4)
+        ex_id.next_to(header_id, DOWN, buff=0.4)
 
-        self.play(Write(header3))
-        self.play(FadeIn(ex3_desc, shift=UP * 0.2))
+        self.play(Write(header_id))
+        self.play(FadeIn(ex_id, shift=UP * 0.2))
         self.next_slide()
 
-        self.play(FadeOut(VGroup(header3, ex3_desc)))
+        self.play(FadeOut(VGroup(header_id, ex_id)))
 
     # ══════════════════════════════════════════════════════════════
     #  SLIDE 5 — Clases de equivalencia
@@ -316,77 +321,137 @@ class RelacionesEquivalenciaSlides(Slide):
 
         header = self.header_text("¿Qué es una clase de equivalencia?", font_size=30)
 
-        defn = VGroup(
-            Text(
-                "Dada una relación de equivalencia R sobre A\n"
-                "y un elemento a ∈ A:",
-                font_size=22, color=WHITE_S, line_spacing=1.4,
-            ),
-            MathTex(
-                r"\bar{a}", "=", r"\text{cl}(a)", "=",
-                r"\{x \in A : x\,R\,a\}",
-                font_size=36, color=WHITE_S,
-            ),
-            Text(
-                "Es el conjunto de TODOS los elementos de A\n"
-                "que están relacionados con a por R.",
-                font_size=22, color=WHITE_S, line_spacing=1.4,
-            ),
-        ).arrange(DOWN, buff=0.3)
-        defn[1][0].set_color(CYAN)
-        defn[1][2].set_color(CYAN)
-        defn[1][4].set_color(GREEN_A)
-        defn.next_to(header, DOWN, buff=0.4)
+        # ── Definición compacta ──
+        defn = MathTex(
+            r"\bar{a}", "=", r"\{x \in A : x \sim a\}",
+            font_size=40, color=WHITE_S,
+        )
+        defn[0].set_color(CYAN)
+        defn[2].set_color(GREEN_A)
+        defn.next_to(header, DOWN, buff=0.5)
+
+        defn_sub = Text(
+            "= todos los elementos de A relacionados con a",
+            font_size=20, color=GRAY,
+        )
+        defn_sub.next_to(defn, DOWN, buff=0.2)
 
         self.play(Write(header))
-        self.play(FadeIn(defn[0], shift=UP * 0.2))
-        self.next_slide()
-        self.play(Write(defn[1]), run_time=1.5)
-        self.play(FadeIn(defn[2], shift=UP * 0.2))
+        self.play(Write(defn), run_time=1.5)
+        self.play(FadeIn(defn_sub))
         self.next_slide()
 
-        self.play(FadeOut(VGroup(defn)))
+        self.play(FadeOut(VGroup(defn, defn_sub)))
 
-        # Representante
-        rep_label = Text("Representante de una clase", font_size=24, color=GREEN_A, weight=BOLD)
-        rep_label.next_to(header, DOWN, buff=0.5)
+        # ══ Visualización: conjunto A con 3 clases coloreadas ══
+        # A = {1,2,3,4,5,6,7,8,9} con 3 clases:
+        #   clase roja: {1, 4, 7}
+        #   clase verde: {2, 5, 8}
+        #   clase violeta: {3, 6, 9}
 
-        rep_text = VGroup(
-            Text(
-                "Cualquier elemento de la clase se llama representante.",
-                font_size=22, color=WHITE_S,
-            ),
-            Text(
-                "Como R es reflexiva, a ∈ cl(a), entonces\n"
-                "a es siempre representante de su propia clase.",
-                font_size=22, color=WHITE_S, line_spacing=1.4,
-            ),
-        ).arrange(DOWN, buff=0.25)
-        rep_text.next_to(rep_label, DOWN, buff=0.3)
+        class_red = [1, 4, 7]
+        class_green = [2, 5, 8]
+        class_purple = [3, 6, 9]
 
-        # Propiedad clave
+        # Posiciones acomodadas: cada clase en su zona
+        layout = {
+            1: LEFT * 3.2 + UP * 0.6,
+            4: LEFT * 3.8 + DOWN * 0.3,
+            7: LEFT * 2.5 + DOWN * 0.4,
+            2: UP * 0.7,
+            5: DOWN * 0.4,
+            8: RIGHT * 0.7 + UP * 0.1,
+            3: RIGHT * 2.7 + UP * 0.6,
+            6: RIGHT * 3.5 + DOWN * 0.4,
+            9: RIGHT * 2.4 + DOWN * 0.2,
+        }
+
+        color_map = {}
+        for n in class_red: color_map[n] = RED_A
+        for n in class_green: color_map[n] = GREEN_A
+        for n in class_purple: color_map[n] = PURPLE
+
+        dots = {}
+        labels = {}
+        for n, pos in layout.items():
+            d = Dot(pos, color=color_map[n], radius=0.13)
+            l = MathTex(str(n), font_size=22, color=WHITE_S).next_to(d, DOWN, buff=0.1)
+            dots[n] = d
+            labels[n] = l
+
+        all_dots = VGroup(*dots.values())
+        all_labels = VGroup(*labels.values())
+
+        # Burbujas por clase
+        def make_bubble(numbers, color):
+            grp = VGroup(*[dots[n] for n in numbers], *[labels[n] for n in numbers])
+            w = grp.width + 0.55
+            h = grp.height + 0.45
+            el = Ellipse(width=w, height=h, color=color, stroke_width=2.5,
+                         fill_opacity=0.12, fill_color=color)
+            el.move_to(grp.get_center())
+            return el
+
+        bubble_red = make_bubble(class_red, RED_A)
+        bubble_green = make_bubble(class_green, GREEN_A)
+        bubble_purple = make_bubble(class_purple, PURPLE)
+
+        # Frontera del conjunto A
+        whole = VGroup(bubble_red, bubble_green, bubble_purple, all_dots, all_labels)
+        A_boundary = Ellipse(
+            width=whole.width + 0.8, height=whole.height + 0.8,
+            color=BLUE, stroke_width=2,
+        ).move_to(whole.get_center())
+        A_label = MathTex("A", font_size=30, color=BLUE).next_to(A_boundary, UL, buff=-0.25)
+
+        # Etiquetas de clases
+        lbl_red = MathTex(r"\bar{1} = \{1,4,7\}", font_size=24, color=RED_A)
+        lbl_green = MathTex(r"\bar{2} = \{2,5,8\}", font_size=24, color=GREEN_A)
+        lbl_purple = MathTex(r"\bar{3} = \{3,6,9\}", font_size=24, color=PURPLE)
+
+        lbls_clases = VGroup(lbl_red, lbl_green, lbl_purple).arrange(RIGHT, buff=0.7)
+
+        diagram_group = VGroup(A_boundary, A_label, bubble_red, bubble_green, bubble_purple,
+                               all_dots, all_labels)
+        diagram_group.move_to(ORIGIN).shift(UP * 0.4)
+        lbls_clases.next_to(diagram_group, DOWN, buff=0.6)
+
+        self.play(
+            Create(A_boundary),
+            FadeIn(A_label),
+        )
+        self.play(
+            LaggedStart(*[FadeIn(d) for d in all_dots], lag_ratio=0.05),
+            LaggedStart(*[FadeIn(l) for l in all_labels], lag_ratio=0.05),
+            run_time=1.5,
+        )
+        self.next_slide()
+
+        self.play(Create(bubble_red), FadeIn(lbl_red))
+        self.next_slide()
+        self.play(Create(bubble_green), FadeIn(lbl_green))
+        self.next_slide()
+        self.play(Create(bubble_purple), FadeIn(lbl_purple))
+        self.next_slide()
+
+        # Propiedad clave destacada
         prop_key = VGroup(
-            Text("Propiedad clave:", font_size=22, color=YELLOW_A, weight=BOLD),
-            MathTex(
-                r"\bar{a} = \bar{b} \;\Longleftrightarrow\; a\,R\,b",
-                font_size=36, color=WHITE_S,
-            ),
-            Text(
-                "Dos clases son iguales si y sólo si\n"
-                "sus representantes están relacionados.",
-                font_size=20, color=GRAY, line_spacing=1.3,
-            ),
-        ).arrange(DOWN, buff=0.15)
-        prop_key.next_to(rep_text, DOWN, buff=0.35)
-
-        self.play(FadeIn(rep_label))
-        self.play(FadeIn(rep_text, shift=UP * 0.2))
-        self.next_slide()
+            MathTex(r"\bar{a} = \bar{b}", r"\iff", r"a \sim b",
+                    font_size=38, color=WHITE_S),
+            Text("Dos clases son iguales ⟺ sus representantes se relacionan",
+                 font_size=18, color=GRAY),
+        ).arrange(DOWN, buff=0.25)
+        prop_key[0][0].set_color(CYAN)
+        prop_key[0][2].set_color(CYAN)
+        prop_key.next_to(lbls_clases, DOWN, buff=0.5)
 
         self.play(FadeIn(prop_key, shift=UP * 0.2))
         self.next_slide()
 
-        self.play(FadeOut(VGroup(header, rep_label, rep_text, prop_key)))
+        self.play(FadeOut(VGroup(
+            header, A_boundary, A_label, bubble_red, bubble_green, bubble_purple,
+            all_dots, all_labels, lbls_clases, prop_key,
+        )))
 
     # ══════════════════════════════════════════════════════════════
     #  SLIDE 6 — Conjunto cociente
@@ -395,56 +460,165 @@ class RelacionesEquivalenciaSlides(Slide):
     def slide_cociente(self):
         header = self.header_text("Conjunto Cociente", font_size=34)
 
-        defn = VGroup(
-            Text(
-                "El conjunto formado por TODAS las clases\n"
-                "de equivalencia se llama conjunto cociente:",
-                font_size=22, color=WHITE_S, line_spacing=1.4,
-            ),
-            MathTex(
-                r"A/R", "=", r"\{\bar{a} : a \in A\}",
-                font_size=40,
-            ),
-            Text(
-                "Es un conjunto de conjuntos: cada elemento\n"
-                "del cociente es una clase de equivalencia.",
-                font_size=20, color=GRAY, line_spacing=1.3,
-            ),
-        ).arrange(DOWN, buff=0.3)
-        defn[1][0].set_color(CYAN)
-        defn[1][2].set_color(GREEN_A)
-        defn.next_to(header, DOWN, buff=0.45)
+        # Definición compacta
+        defn = MathTex(
+            r"A/R", r"=", r"\{\bar{a} : a \in A\}",
+            font_size=42,
+        )
+        defn[0].set_color(CYAN)
+        defn[2].set_color(GREEN_A)
+        defn.next_to(header, DOWN, buff=0.5)
 
-        # Ejemplo concreto
-        ej_label = Text("Ejemplo:", font_size=22, color=GREEN_A, weight=BOLD)
-        ej_label.next_to(defn, DOWN, buff=0.35)
-
-        ej = VGroup(
-            MathTex(
-                r"A = \{1,2,3,4\}, \quad R = \{(1,1),(1,2),(2,1),(2,2),(3,3),(4,4)\}",
-                font_size=24, color=WHITE_S,
-            ),
-            MathTex(
-                r"\bar{1} = \bar{2} = \{1,2\}, \quad \bar{3} = \{3\}, \quad \bar{4} = \{4\}",
-                font_size=26, color=WHITE_S,
-            ),
-            MathTex(
-                r"A/R = \big\{\{1,2\},\;\{3\},\;\{4\}\big\}",
-                font_size=28, color=CYAN,
-            ),
-        ).arrange(DOWN, buff=0.2)
-        ej.next_to(ej_label, DOWN, buff=0.2)
+        defn_sub = Text(
+            "= el conjunto de todas las clases de equivalencia",
+            font_size=20, color=GRAY,
+        )
+        defn_sub.next_to(defn, DOWN, buff=0.2)
 
         self.play(Write(header))
-        self.play(FadeIn(defn, shift=UP * 0.2))
+        self.play(Write(defn), run_time=1.5)
+        self.play(FadeIn(defn_sub))
         self.next_slide()
 
-        self.play(FadeIn(ej_label))
-        for e in ej:
-            self.play(FadeIn(e, shift=UP * 0.2))
+        self.play(FadeOut(VGroup(defn, defn_sub)))
+
+        # ══ Animación de colapso: A con clases → A/R ══
+        # Izquierda: A con 3 burbujas y sus puntos
+        # Derecha: A/R con 3 puntos (uno por clase)
+
+        # ── Lado izquierdo: conjunto A ──
+        left_center = LEFT * 3.3
+        layout_L = {
+            1: left_center + LEFT * 0.55 + UP * 0.6,
+            2: left_center + RIGHT * 0.55 + UP * 0.6,
+            3: left_center + LEFT * 0.1 + DOWN * 0.0,
+            4: left_center + LEFT * 0.55 + DOWN * 0.75,
+            5: left_center + RIGHT * 0.55 + DOWN * 0.75,
+        }
+        color_L = {1: RED_A, 2: RED_A, 3: GREEN_A, 4: PURPLE, 5: PURPLE}
+
+        L_dots = {}
+        L_labels = {}
+        for n, pos in layout_L.items():
+            d = Dot(pos, color=color_L[n], radius=0.12)
+            l = MathTex(str(n), font_size=20, color=WHITE_S).next_to(d, DOWN, buff=0.08)
+            L_dots[n] = d
+            L_labels[n] = l
+
+        # Burbujas izquierda
+        def bubble_around(numbers, color):
+            grp = VGroup(*[L_dots[n] for n in numbers], *[L_labels[n] for n in numbers])
+            w = max(grp.width + 0.5, 0.8)
+            h = max(grp.height + 0.4, 0.8)
+            el = Ellipse(width=w, height=h, color=color, stroke_width=2,
+                         fill_opacity=0.15, fill_color=color)
+            el.move_to(grp.get_center())
+            return el
+
+        bub_red_L = bubble_around([1, 2], RED_A)
+        bub_green_L = bubble_around([3], GREEN_A)
+        bub_purple_L = bubble_around([4, 5], PURPLE)
+
+        L_all = VGroup(bub_red_L, bub_green_L, bub_purple_L,
+                       *L_dots.values(), *L_labels.values())
+        A_boundary = Ellipse(
+            width=L_all.width + 0.7, height=L_all.height + 0.7,
+            color=BLUE, stroke_width=2,
+        ).move_to(L_all.get_center())
+        A_lbl = MathTex("A", font_size=28, color=BLUE).next_to(A_boundary, UP, buff=0.15)
+
+        # ── Lado derecho: cociente A/R ──
+        right_center = RIGHT * 3.3
+        coc_red = Dot(right_center + UP * 0.9, color=RED_A, radius=0.22)
+        coc_green = Dot(right_center, color=GREEN_A, radius=0.22)
+        coc_purple = Dot(right_center + DOWN * 0.9, color=PURPLE, radius=0.22)
+
+        coc_red_lbl = MathTex(r"\{1,2\}", font_size=22, color=WHITE_S).next_to(coc_red, RIGHT, buff=0.2)
+        coc_green_lbl = MathTex(r"\{3\}", font_size=22, color=WHITE_S).next_to(coc_green, RIGHT, buff=0.2)
+        coc_purple_lbl = MathTex(r"\{4,5\}", font_size=22, color=WHITE_S).next_to(coc_purple, RIGHT, buff=0.2)
+
+        coc_dots = VGroup(coc_red, coc_green, coc_purple)
+        coc_labels = VGroup(coc_red_lbl, coc_green_lbl, coc_purple_lbl)
+        coc_all = VGroup(coc_dots, coc_labels)
+        AR_boundary = Ellipse(
+            width=coc_all.width + 0.7, height=coc_all.height + 0.6,
+            color=CYAN, stroke_width=2,
+        ).move_to(coc_all.get_center())
+        AR_lbl = MathTex("A/R", font_size=28, color=CYAN).next_to(AR_boundary, UP, buff=0.15)
+
+        # Flecha de proyección
+        proj_arrow = Arrow(
+            A_boundary.get_right() + RIGHT * 0.1,
+            AR_boundary.get_left() + LEFT * 0.1,
+            color=YELLOW_A, buff=0.05, stroke_width=3, tip_length=0.18,
+        )
+        proj_label = Text("proyección", font_size=18, color=YELLOW_A)
+        proj_label.next_to(proj_arrow, UP, buff=0.1)
+
+        # Mostrar A con burbujas
+        self.play(Create(A_boundary), FadeIn(A_lbl))
+        self.play(
+            LaggedStart(*[FadeIn(d) for d in L_dots.values()], lag_ratio=0.05),
+            LaggedStart(*[FadeIn(l) for l in L_labels.values()], lag_ratio=0.05),
+            run_time=1.2,
+        )
+        self.play(
+            Create(bub_red_L), Create(bub_green_L), Create(bub_purple_L),
+            run_time=1,
+        )
         self.next_slide()
 
-        self.play(FadeOut(VGroup(header, defn, ej_label, ej)))
+        # Flecha y boundary del cociente
+        self.play(
+            Create(proj_arrow),
+            FadeIn(proj_label),
+            Create(AR_boundary),
+            FadeIn(AR_lbl),
+        )
+        self.next_slide()
+
+        # Colapso: cada burbuja se transforma en su punto en el cociente
+        # (creamos copias trackeables para poder limpiarlas después)
+        proj_red = bub_red_L.copy()
+        proj_green = bub_green_L.copy()
+        proj_purple = bub_purple_L.copy()
+        self.add(proj_red, proj_green, proj_purple)
+        self.play(
+            Transform(proj_red, coc_red),
+            Transform(proj_green, coc_green),
+            Transform(proj_purple, coc_purple),
+            run_time=1.5,
+        )
+        self.play(
+            FadeIn(coc_red_lbl, shift=LEFT * 0.2),
+            FadeIn(coc_green_lbl, shift=LEFT * 0.2),
+            FadeIn(coc_purple_lbl, shift=LEFT * 0.2),
+        )
+        self.next_slide()
+
+        # Caption explicativo
+        caption = MathTex(
+            r"A/R = \big\{\{1,2\},\;\{3\},\;\{4,5\}\big\}",
+            font_size=30, color=CYAN,
+        ).to_edge(DOWN, buff=0.7)
+
+        caption_sub = Text(
+            "Cada clase se convierte en UN punto del cociente.",
+            font_size=18, color=GRAY,
+        ).next_to(caption, DOWN, buff=0.2)
+
+        self.play(FadeIn(caption, shift=UP * 0.2))
+        self.play(FadeIn(caption_sub))
+        self.next_slide()
+
+        # Limpieza (proj_* son las copias transformadas que están en escena)
+        self.play(FadeOut(VGroup(
+            header, A_boundary, A_lbl, bub_red_L, bub_green_L, bub_purple_L,
+            *L_dots.values(), *L_labels.values(),
+            proj_arrow, proj_label, AR_boundary, AR_lbl,
+            proj_red, proj_green, proj_purple, coc_labels,
+            caption, caption_sub,
+        )))
 
     # ══════════════════════════════════════════════════════════════
     #  SLIDE 7 — Particiones
@@ -461,124 +635,144 @@ class RelacionesEquivalenciaSlides(Slide):
 
         header = self.header_text("¿Qué es una partición?", font_size=32)
 
-        defn = VGroup(
-            Text(
-                "Una partición de un conjunto A es una familia\n"
-                "de subconjuntos no vacíos de A que cumple:",
-                font_size=22, color=WHITE_S, line_spacing=1.4,
-            ),
-        )
-        defn.next_to(header, DOWN, buff=0.4)
+        # ══ Visualización: conjunto A dividido en regiones ══
+        # Rectángulo grande (A) partido en 4 piezas de distinto color
 
-        conds = VGroup(
-            VGroup(
-                Text("1.", font_size=22, color=YELLOW_A, weight=BOLD),
-                MathTex(
-                    r"A_i \in P \Rightarrow A_i \neq \emptyset",
-                    font_size=28, color=WHITE_S,
-                ),
-                Text("Cada parte es no vacía", font_size=18, color=GRAY),
-            ).arrange(RIGHT, buff=0.2),
-            VGroup(
-                Text("2.", font_size=22, color=ORANGE, weight=BOLD),
-                MathTex(
-                    r"A_i, A_j \in P,\; i \neq j \Rightarrow A_i \cap A_j = \emptyset",
-                    font_size=28, color=WHITE_S,
-                ),
-                Text("Son disjuntas dos a dos", font_size=18, color=GRAY),
-            ).arrange(RIGHT, buff=0.2),
-            VGroup(
-                Text("3.", font_size=22, color=PURPLE, weight=BOLD),
-                MathTex(
-                    r"\bigcup_{i \in I} A_i = A",
-                    font_size=28, color=WHITE_S,
-                ),
-                Text("Su unión cubre todo A", font_size=18, color=GRAY),
-            ).arrange(RIGHT, buff=0.2),
-        ).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
-        conds.next_to(defn, DOWN, buff=0.35)
+        A_rect = RoundedRectangle(
+            width=6.5, height=3.5,
+            corner_radius=0.3,
+            color=BLUE, stroke_width=2,
+        )
+        A_rect.move_to(ORIGIN).shift(UP * 0.3)
+        A_lbl = MathTex("A", font_size=30, color=BLUE).next_to(A_rect, UL, buff=-0.25)
+
+        # 4 regiones internas (fills con polígonos)
+        # Zona 1 (arriba-izq), 2 (arriba-der), 3 (abajo-izq), 4 (abajo-der)
+        c = A_rect.get_center()
+        def region(corner_from, corner_to, fill_color, name, name_offset):
+            r = RoundedRectangle(
+                width=2.8, height=1.4,
+                corner_radius=0.15,
+                color=fill_color, stroke_width=2,
+                fill_opacity=0.3, fill_color=fill_color,
+            )
+            r.move_to(c + corner_from)
+            lbl = MathTex(name, font_size=28, color=fill_color).move_to(r.get_center())
+            return r, lbl
+
+        r1, l1 = region(LEFT * 1.5 + UP * 0.75, None, RED_A, "A_1", None)
+        r2, l2 = region(RIGHT * 1.5 + UP * 0.75, None, GREEN_A, "A_2", None)
+        r3, l3 = region(LEFT * 1.5 + DOWN * 0.75, None, YELLOW_A, "A_3", None)
+        r4, l4 = region(RIGHT * 1.5 + DOWN * 0.75, None, PURPLE, "A_4", None)
+
+        regions = VGroup(r1, r2, r3, r4)
+        region_labels = VGroup(l1, l2, l3, l4)
 
         self.play(Write(header))
-        self.play(FadeIn(defn, shift=UP * 0.2))
+        self.play(Create(A_rect), FadeIn(A_lbl))
         self.next_slide()
 
-        for c in conds:
-            self.play(FadeIn(c, shift=UP * 0.2))
+        self.play(
+            LaggedStart(
+                *[FadeIn(r) for r in regions],
+                lag_ratio=0.2,
+            ),
+            LaggedStart(
+                *[FadeIn(l) for l in region_labels],
+                lag_ratio=0.2,
+            ),
+            run_time=1.8,
+        )
         self.next_slide()
 
-        self.play(FadeOut(VGroup(defn, conds)))
+        # Las 3 condiciones compactas, con checkmarks
+        conds = VGroup(
+            VGroup(
+                Text("1.", font_size=24, color=YELLOW_A, weight=BOLD),
+                MathTex(r"A_i \neq \emptyset", font_size=28, color=WHITE_S),
+                MathTex(r"\checkmark", font_size=28, color=GREEN_A),
+            ).arrange(RIGHT, buff=0.25),
+            VGroup(
+                Text("2.", font_size=24, color=ORANGE, weight=BOLD),
+                MathTex(r"A_i \cap A_j = \emptyset \;\;(i \neq j)",
+                        font_size=28, color=WHITE_S),
+                MathTex(r"\checkmark", font_size=28, color=GREEN_A),
+            ).arrange(RIGHT, buff=0.25),
+            VGroup(
+                Text("3.", font_size=24, color=PURPLE, weight=BOLD),
+                MathTex(r"\bigcup_i A_i = A", font_size=28, color=WHITE_S),
+                MathTex(r"\checkmark", font_size=28, color=GREEN_A),
+            ).arrange(RIGHT, buff=0.25),
+        ).arrange(DOWN, buff=0.25, aligned_edge=LEFT)
+        conds.to_edge(DOWN, buff=0.6)
 
-        # Ejemplo visual
-        ej_label = Text("Ejemplo:", font_size=22, color=GREEN_A, weight=BOLD)
-        ej_label.next_to(header, DOWN, buff=0.5)
-
-        ej = VGroup(
-            MathTex(
-                r"\mathbb{N} = \text{Pares} \cup \text{Impares}",
-                font_size=32, color=WHITE_S,
-            ),
-            MathTex(
-                r"\text{Pares} \cap \text{Impares} = \emptyset",
-                font_size=28, color=WHITE_S,
-            ),
-            Text(
-                "Los pares e impares forman una partición de ℕ",
-                font_size=22, color=GRAY,
-            ),
-        ).arrange(DOWN, buff=0.25)
-        ej.next_to(ej_label, DOWN, buff=0.3)
-
-        self.play(FadeIn(ej_label))
-        self.play(FadeIn(ej, shift=UP * 0.2))
+        self.play(LaggedStart(*[FadeIn(c, shift=UP * 0.2) for c in conds], lag_ratio=0.3),
+                  run_time=1.8)
         self.next_slide()
 
-        self.play(FadeOut(VGroup(ej_label, ej)))
+        self.play(FadeOut(VGroup(A_rect, A_lbl, regions, region_labels, conds)))
 
-        # Teorema fundamental
-        teo_label = Text("Teorema Fundamental", font_size=24, color=CYAN, weight=BOLD)
+        # ══ Teorema fundamental ══
+        teo_label = Text("Teorema Fundamental", font_size=26, color=CYAN, weight=BOLD)
         teo_label.next_to(header, DOWN, buff=0.5)
 
-        teo = VGroup(
-            Text(
-                "Si R es una relación de equivalencia en A,",
-                font_size=22, color=WHITE_S,
-            ),
-            Text(
-                "entonces el conjunto cociente A/R",
-                font_size=22, color=WHITE_S,
-            ),
-            Text(
-                "es una partición de A.",
-                font_size=24, color=CYAN, weight=BOLD,
-            ),
-        ).arrange(DOWN, buff=0.15)
-        teo.next_to(teo_label, DOWN, buff=0.35)
+        # Diagrama visual: Equivalencia ⟺ Partición
+        # Izq: icono clases coloreadas (3 círculos juntos)
+        left_bubbles = VGroup(
+            Circle(radius=0.35, color=RED_A, fill_opacity=0.4, fill_color=RED_A, stroke_width=2),
+            Circle(radius=0.30, color=GREEN_A, fill_opacity=0.4, fill_color=GREEN_A, stroke_width=2),
+            Circle(radius=0.32, color=PURPLE, fill_opacity=0.4, fill_color=PURPLE, stroke_width=2),
+        ).arrange(RIGHT, buff=0.1)
+        left_outer = Ellipse(
+            width=left_bubbles.width + 0.4, height=left_bubbles.height + 0.4,
+            color=CYAN, stroke_width=2,
+        ).move_to(left_bubbles.get_center())
+        left_icon = VGroup(left_outer, left_bubbles)
+        left_label = MathTex(r"R \text{ equivalencia}", font_size=24, color=CYAN)
+        left_label.next_to(left_icon, DOWN, buff=0.3)
+        left_side = VGroup(left_icon, left_label)
 
-        teo_box = SurroundingRectangle(teo, color=CYAN, buff=0.3, corner_radius=0.1)
+        # Der: icono partición (rectángulo con divisiones)
+        right_rect = RoundedRectangle(width=1.8, height=1.1, corner_radius=0.12,
+                                      color=BLUE, stroke_width=2)
+        r_a = RoundedRectangle(width=0.75, height=0.45, corner_radius=0.06,
+                               color=RED_A, fill_opacity=0.4, fill_color=RED_A, stroke_width=1.5)
+        r_b = RoundedRectangle(width=0.75, height=0.45, corner_radius=0.06,
+                               color=GREEN_A, fill_opacity=0.4, fill_color=GREEN_A, stroke_width=1.5)
+        r_c = RoundedRectangle(width=0.75, height=0.45, corner_radius=0.06,
+                               color=PURPLE, fill_opacity=0.4, fill_color=PURPLE, stroke_width=1.5)
+        r_a.move_to(right_rect.get_center() + LEFT * 0.4 + UP * 0.25)
+        r_b.move_to(right_rect.get_center() + RIGHT * 0.4 + UP * 0.25)
+        r_c.move_to(right_rect.get_center() + DOWN * 0.25)
+        right_icon = VGroup(right_rect, r_a, r_b, r_c)
+        right_label = MathTex(r"A/R \text{ partición}", font_size=24, color=CYAN)
+        right_label.next_to(right_icon, DOWN, buff=0.3)
+        right_side = VGroup(right_icon, right_label)
 
-        reciproco = VGroup(
-            Text("Y recíprocamente:", font_size=22, color=WHITE_S),
-            Text(
-                "Toda partición de A induce una relación\n"
-                "de equivalencia en A.",
-                font_size=22, color=WHITE_S, line_spacing=1.3,
-            ),
-            Text(
-                "aRb ⟺ a y b pertenecen al mismo subconjunto de P",
-                font_size=20, color=GRAY,
-            ),
-        ).arrange(DOWN, buff=0.15)
-        reciproco.next_to(teo_box, DOWN, buff=0.35)
+        # Flecha bidireccional entre ambos
+        equiv_arrow = MathTex(r"\Longleftrightarrow", font_size=54, color=YELLOW_A)
+
+        teorema_row = VGroup(left_side, equiv_arrow, right_side).arrange(RIGHT, buff=0.9)
+        teorema_row.next_to(teo_label, DOWN, buff=0.6)
+
+        nota = Text(
+            "Equivalencias y particiones son dos caras de la misma moneda.",
+            font_size=20, color=GRAY,
+        )
+        nota.next_to(teorema_row, DOWN, buff=0.7)
 
         self.play(FadeIn(teo_label))
-        self.play(FadeIn(teo, shift=UP * 0.2))
-        self.play(Create(teo_box))
+        self.play(
+            FadeIn(left_side, shift=RIGHT * 0.3),
+            FadeIn(right_side, shift=LEFT * 0.3),
+        )
+        self.play(Write(equiv_arrow))
         self.next_slide()
 
-        self.play(FadeIn(reciproco, shift=UP * 0.2))
+        self.play(FadeIn(nota, shift=UP * 0.2))
         self.next_slide()
 
-        self.play(FadeOut(VGroup(header, teo_label, teo, teo_box, reciproco)))
+        self.play(FadeOut(VGroup(header, teo_label, teorema_row, nota)))
 
     # ══════════════════════════════════════════════════════════════
     #  SLIDE 8 — Ejercicio 29 (TP4)
