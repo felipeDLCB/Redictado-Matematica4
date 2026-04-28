@@ -296,22 +296,6 @@
 
 **[Avanzar]**
 
-### Intuicion
-
-*Se ve: "Ej. 32 — Intuicion" y la explicacion de xw = yz como fracciones.*
-
-> Antes de ir a la prueba formal, quedemonos un minuto con la intuicion. ¿Que significa que xw sea igual a yz?
-
-> Si pensamos al par (x, y) como la **fraccion x sobre y**, entonces la condicion xw = yz es exactamente lo que obtenemos al hacer **productos cruzados**: x sobre y es igual a z sobre w.
-
-**[Avanzar]** *(aparece la equivalencia con x/y = z/w)*
-
-> Es decir, dos pares estan relacionados si **representan la misma fraccion**. Por ejemplo, (1,2), (2,4), (3,6) y (4,8) estan todos relacionados entre si — porque todos representan a un medio.
-
-> Con esta intuicion en mente, las demostraciones se vuelven mucho mas faciles de seguir.
-
-**[Avanzar]**
-
 ### Reflexividad
 
 *Se ve: "Ej. 32 — Reflexividad" con la demostracion.*
@@ -384,31 +368,35 @@
 
 ### Clase de (-1, 4)
 
-*Se ve: "Ej. 32 — Clase de (-1, 4)" con los calculos.*
+*Se ve: "Ej. 32 — Clase de (-1, 4)" con el razonamiento paso a paso.*
 
-> Ahora calculamos la clase del elemento **(-1, 4)**. Por definicion, es el conjunto de todos los pares (x, y) tales que **-1 por y = 4 por x**.
+> Ahora vamos a hallar la **clase de equivalencia del elemento (-1, 4)**. Recordemos que la clase de un elemento es el conjunto de todos los elementos del conjunto original que estan relacionados con el.
 
-> Despejando, obtenemos **y = -4x**.
+> Planteamos la relacion: (x, y) ∼ (-1, 4) si y solo si **x por 4 = y por (-1)**.
 
-**[Avanzar]** *(aparece la expresion de la clase)*
+> Despejando, obtenemos **4x = -y**, lo que equivale a **y = -4x**.
 
-> Entonces la clase de (-1, 4) es el conjunto de todos los pares de la forma **(x, -4x)** con x distinto de cero. Esto incluye, por ejemplo, los pares (-2, 8), (-1, 4), (1, -4), (2, -8), y asi.
+> Ahora, una observacion importante: como y no puede ser cero — porque el conjunto de llegada excluye al cero — entonces x tampoco puede ser cero.
 
-> Y aca lo interesante: **todos estos pares representan la misma fraccion, menos un cuarto**. Si ustedes toman cualquiera de esos pares como una fraccion, todos simplifican a -1/4. Esa es la intuicion que teniamos al principio, hecha explicita.
+**[Avanzar]** *(aparece la expresion final de la clase con el recuadro)*
+
+> Por lo tanto, la clase de equivalencia es el conjunto de pares **(x, -4x) con x distinto de cero**. Algunos elementos de esta clase serian (-1, 4), (1, -4), (2, -8), (-2, 8), y asi sucesivamente.
 
 **[Avanzar]**
 
-### Los racionales como cociente
+### Identificacion con los racionales
 
-*Se ve: "Ej. 32 — Los racionales como cociente".*
+*Se ve: "Ej. 32 — Identificacion con los racionales".*
 
-> Ahora vamos al tercer punto del ejercicio: mostrar que **cada clase se identifica con un numero racional**.
+> Ahora vamos al tercer punto del ejercicio: mostrar la **identificacion con los numeros racionales**.
 
-> Como vimos, si (x, y) ∼ (z, w), entonces xw = yz, lo que es lo mismo que decir que **x sobre y es igual a z sobre w**. Es decir, dos pares estan en la misma clase si y solo si representan la misma fraccion.
+> La relacion **(a, b) ∼ (c, d) si y solo si ad = bc** es exactamente la propiedad matematica que determina cuando **dos fracciones son equivalentes**: a sobre b es igual a c sobre d si y solo si ad = bc.
 
-**[Avanzar]** *(aparece la correspondencia entre clase y fraccion)*
+**[Avanzar]** *(aparece la equivalencia con las fracciones y el resto del razonamiento)*
 
-> Entonces podemos identificar cada clase de equivalencia con **un unico numero racional**. La clase de (x, y) se corresponde naturalmente con el racional x sobre y.
+> En este contexto, **cada clase de equivalencia agrupa a todas las fracciones que representan el mismo valor**. Y habitualmente se elige a la fraccion irreducible como el representante formal de dicha clase.
+
+> De este modo, el **conjunto cociente** — el conjunto formado por todas las clases de equivalencia — constituye exactamente la **construccion formal del conjunto de los numeros racionales, Q**.
 
 **[Avanzar]**
 
@@ -426,27 +414,7 @@
 
 ---
 
-## Slide 10 — Resumen
-
-*Se ve: titulo "Resumen" y los conceptos principales en una grilla.*
-
-> Para cerrar, recordemos rapidamente los conceptos clave que vimos.
-
-> Una **relacion de equivalencia** es aquella que cumple las tres propiedades: reflexiva, simetrica y transitiva.
-
-> La **clase de equivalencia** de un elemento *a* es el conjunto de todos los elementos relacionados con *a*.
-
-> El **conjunto cociente** es la coleccion de todas las clases — agrupamos el conjunto original en sus "grupos equivalentes".
-
-> Una **particion** es una familia de subconjuntos no vacios, disjuntos, cuya union cubre todo el conjunto.
-
-> Y el **teorema clave** conecta ambos conceptos: el cociente A sobre R es particion de A si y solo si R es una relacion de equivalencia. Son dos maneras de ver lo mismo.
-
-**[Avanzar]**
-
----
-
-## Slide 11 — Cierre
+## Slide 10 — Cierre
 
 *Se ve: "Relaciones de Equivalencia" y "¡Gracias!".*
 

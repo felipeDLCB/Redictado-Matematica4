@@ -107,17 +107,17 @@ class RelacionesEquivalenciaSlides(Slide):
     # ══════════════════════════════════════════════════════════════
 
     def slide_titulo(self):
-        title = Text("Relaciones de Equivalencia", font_size=48, color=CYAN, weight=BOLD)
+        title = Text("Relaciones de Equivalencia", font_size=58, color=CYAN, weight=BOLD)
         subtitle = Text(
             "Clases de equivalencia y Particiones",
-            font_size=26, color=GRAY,
+            font_size=32, color=GRAY,
         )
         subtitle.next_to(title, DOWN, buff=0.4)
 
         line = Line(LEFT * 3.5, RIGHT * 3.5, color=BLUE, stroke_width=2)
         line.next_to(subtitle, DOWN, buff=0.3)
 
-        mat = Text("Matemática 4 — Relaciones entre conjuntos", font_size=20, color=GRAY)
+        mat = Text("Matemática 4 — Relaciones entre conjuntos", font_size=24, color=GRAY)
         mat.next_to(line, DOWN, buff=0.3)
 
         self.play(FadeIn(title, shift=DOWN * 0.3))
@@ -137,44 +137,44 @@ class RelacionesEquivalenciaSlides(Slide):
         intro = Text(
             "Antes de definir equivalencia, recordemos\n"
             "las tres propiedades que la componen:",
-            font_size=22, color=WHITE_S, line_spacing=1.4,
+            font_size=28, color=WHITE_S, line_spacing=1.4,
         )
         intro.next_to(header, DOWN, buff=0.4)
 
         props = VGroup(
             VGroup(
-                Text("Reflexividad", font_size=24, color=YELLOW_A, weight=BOLD),
+                Text("Reflexividad", font_size=30, color=YELLOW_A, weight=BOLD),
                 MathTex(
                     r"\forall\, x \in A: \; x\,R\,x",
-                    font_size=30, color=WHITE_S,
+                    font_size=36, color=WHITE_S,
                 ),
                 Text(
                     "Todo elemento se relaciona consigo mismo.",
-                    font_size=18, color=GRAY,
+                    font_size=22, color=GRAY,
                 ),
-            ).arrange(DOWN, buff=0.12),
+            ).arrange(DOWN, buff=0.15),
             VGroup(
-                Text("Simetría", font_size=24, color=ORANGE, weight=BOLD),
+                Text("Simetría", font_size=30, color=ORANGE, weight=BOLD),
                 MathTex(
                     r"\forall\, x, y \in A: \; x\,R\,y \Rightarrow y\,R\,x",
-                    font_size=30, color=WHITE_S,
+                    font_size=36, color=WHITE_S,
                 ),
                 Text(
                     "Si x se relaciona con y, entonces y se relaciona con x.",
-                    font_size=18, color=GRAY,
+                    font_size=22, color=GRAY,
                 ),
-            ).arrange(DOWN, buff=0.12),
+            ).arrange(DOWN, buff=0.15),
             VGroup(
-                Text("Transitividad", font_size=24, color=PURPLE, weight=BOLD),
+                Text("Transitividad", font_size=30, color=PURPLE, weight=BOLD),
                 MathTex(
                     r"\forall\, x, y, z \in A: \; x\,R\,y \;\land\; y\,R\,z \Rightarrow x\,R\,z",
-                    font_size=30, color=WHITE_S,
+                    font_size=34, color=WHITE_S,
                 ),
                 Text(
                     "Si x→y e y→z, entonces x→z.",
-                    font_size=18, color=GRAY,
+                    font_size=22, color=GRAY,
                 ),
-            ).arrange(DOWN, buff=0.12),
+            ).arrange(DOWN, buff=0.15),
         )
         props.arrange(DOWN, buff=0.45, aligned_edge=LEFT)
         props.next_to(intro, DOWN, buff=0.35)
@@ -208,7 +208,7 @@ class RelacionesEquivalenciaSlides(Slide):
             "Una relación R definida sobre un conjunto A\n"
             "es una relación de equivalencia si y sólo si\n"
             "es reflexiva, simétrica y transitiva.",
-            font_size=22, color=WHITE_S, line_spacing=1.5,
+            font_size=28, color=WHITE_S, line_spacing=1.5,
         )
         defn_text.next_to(header, DOWN, buff=0.45)
 
@@ -221,14 +221,14 @@ class RelacionesEquivalenciaSlides(Slide):
             r"\text{Simétrica: } xRy \Rightarrow yRx \\"
             r"\text{Transitiva: } xRy \land yRz \Rightarrow xRz"
             r"\end{cases}",
-            font_size=26, color=WHITE_S,
+            font_size=30, color=WHITE_S,
         )
         formula[0].set_color(CYAN)
         formula.next_to(defn_text, DOWN, buff=0.45)
 
         nota = MathTex(
             r"\text{Notación: } R \text{ se denota } \sim,\; \approx \;\text{ ó }\; \equiv",
-            font_size=22, color=GRAY,
+            font_size=26, color=GRAY,
         )
         nota.next_to(formula, DOWN, buff=0.4)
 
@@ -260,13 +260,13 @@ class RelacionesEquivalenciaSlides(Slide):
             Text(
                 "La igualdad matemática (=) es trivialmente\n"
                 "una relación de equivalencia en cualquier conjunto.",
-                font_size=22, color=WHITE_S, line_spacing=1.4,
+                font_size=28, color=WHITE_S, line_spacing=1.4,
             ),
             VGroup(
-                MathTex(r"\text{Reflexiva: } a = a \;\checkmark", font_size=26, color=WHITE_S),
-                MathTex(r"\text{Simétrica: } a = b \Rightarrow b = a \;\checkmark", font_size=26, color=WHITE_S),
-                MathTex(r"\text{Transitiva: } a = b \land b = c \Rightarrow a = c \;\checkmark", font_size=26, color=WHITE_S),
-            ).arrange(DOWN, buff=0.2, aligned_edge=LEFT),
+                MathTex(r"\text{Reflexiva: } a = a \;\checkmark", font_size=32, color=WHITE_S),
+                MathTex(r"\text{Simétrica: } a = b \Rightarrow b = a \;\checkmark", font_size=32, color=WHITE_S),
+                MathTex(r"\text{Transitiva: } a = b \land b = c \Rightarrow a = c \;\checkmark", font_size=32, color=WHITE_S),
+            ).arrange(DOWN, buff=0.25, aligned_edge=LEFT),
         )
         ex1[0].next_to(header, DOWN, buff=0.4)
         ex1[1].next_to(ex1[0], DOWN, buff=0.35)
@@ -285,19 +285,19 @@ class RelacionesEquivalenciaSlides(Slide):
         ex_id = VGroup(
             Text(
                 "La relación Identidad sobre un conjunto A:",
-                font_size=22, color=WHITE_S,
+                font_size=28, color=WHITE_S,
             ),
             MathTex(
                 r"\Delta_A = \{(x, x) : x \in A\}",
-                font_size=34, color=CYAN,
+                font_size=44, color=CYAN,
             ),
             Text(
                 "Es reflexiva, simétrica, antisimétrica y transitiva.\n"
                 "Por lo tanto, es una relación de equivalencia\n"
                 "(y también de orden).",
-                font_size=22, color=WHITE_S, line_spacing=1.4,
+                font_size=28, color=WHITE_S, line_spacing=1.4,
             ),
-        ).arrange(DOWN, buff=0.3)
+        ).arrange(DOWN, buff=0.4)
         ex_id.next_to(header_id, DOWN, buff=0.4)
 
         self.play(Write(header_id))
@@ -792,18 +792,18 @@ class RelacionesEquivalenciaSlides(Slide):
         enunc = VGroup(
             MathTex(
                 r"A = \{1, 2, 3, 4\}",
-                font_size=30, color=WHITE_S,
+                font_size=38, color=WHITE_S,
             ),
             MathTex(
                 r"R = \{(1,1),(1,2),(2,1),(2,2),(3,3),(3,4),(4,3),(4,4)\}",
-                font_size=26, color=WHITE_S,
+                font_size=30, color=WHITE_S,
             ),
             Text(
                 "Mostrar que R es de equivalencia,\n"
                 "hallar las clases y la partición que induce.",
-                font_size=22, color=GRAY, line_spacing=1.3,
+                font_size=26, color=GRAY, line_spacing=1.3,
             ),
-        ).arrange(DOWN, buff=0.25)
+        ).arrange(DOWN, buff=0.35)
         enunc.next_to(header, DOWN, buff=0.4)
 
         self.play(Write(header))
@@ -818,13 +818,13 @@ class RelacionesEquivalenciaSlides(Slide):
         ))
 
         ref = VGroup(
-            Text("¿Todos los elementos se relacionan consigo mismos?", font_size=22, color=WHITE_S),
-            MathTex(r"(1,1) \in R \;\checkmark", font_size=28, color=GREEN_A),
-            MathTex(r"(2,2) \in R \;\checkmark", font_size=28, color=GREEN_A),
-            MathTex(r"(3,3) \in R \;\checkmark", font_size=28, color=GREEN_A),
-            MathTex(r"(4,4) \in R \;\checkmark", font_size=28, color=GREEN_A),
-            Text("R es reflexiva ✓", font_size=24, color=GREEN_A, weight=BOLD),
-        ).arrange(DOWN, buff=0.2)
+            Text("¿Todos los elementos se relacionan consigo mismos?", font_size=28, color=WHITE_S),
+            MathTex(r"(1,1) \in R \;\checkmark", font_size=34, color=GREEN_A),
+            MathTex(r"(2,2) \in R \;\checkmark", font_size=34, color=GREEN_A),
+            MathTex(r"(3,3) \in R \;\checkmark", font_size=34, color=GREEN_A),
+            MathTex(r"(4,4) \in R \;\checkmark", font_size=34, color=GREEN_A),
+            Text("R es reflexiva ✓", font_size=32, color=GREEN_A, weight=BOLD),
+        ).arrange(DOWN, buff=0.25)
         ref.next_to(header, DOWN, buff=0.4)
 
         self.play(FadeIn(ref, shift=UP * 0.2))
@@ -838,12 +838,12 @@ class RelacionesEquivalenciaSlides(Slide):
         ))
 
         sim = VGroup(
-            Text("¿Para cada (x,y) ∈ R, también (y,x) ∈ R?", font_size=22, color=WHITE_S),
-            MathTex(r"(1,2) \in R \;\land\; (2,1) \in R \;\checkmark", font_size=26, color=WHITE_S),
-            MathTex(r"(3,4) \in R \;\land\; (4,3) \in R \;\checkmark", font_size=26, color=WHITE_S),
-            Text("Los pares (x,x) son trivialmente simétricos.", font_size=20, color=GRAY),
-            Text("R es simétrica ✓", font_size=24, color=GREEN_A, weight=BOLD),
-        ).arrange(DOWN, buff=0.2)
+            Text("¿Para cada (x,y) ∈ R, también (y,x) ∈ R?", font_size=28, color=WHITE_S),
+            MathTex(r"(1,2) \in R \;\land\; (2,1) \in R \;\checkmark", font_size=32, color=WHITE_S),
+            MathTex(r"(3,4) \in R \;\land\; (4,3) \in R \;\checkmark", font_size=32, color=WHITE_S),
+            Text("Los pares (x,x) son trivialmente simétricos.", font_size=24, color=GRAY),
+            Text("R es simétrica ✓", font_size=32, color=GREEN_A, weight=BOLD),
+        ).arrange(DOWN, buff=0.3)
         sim.next_to(header, DOWN, buff=0.4)
 
         self.play(FadeIn(sim, shift=UP * 0.2))
@@ -857,16 +857,16 @@ class RelacionesEquivalenciaSlides(Slide):
         ))
 
         trans = VGroup(
-            Text("¿Si (x,y) ∈ R y (y,z) ∈ R, entonces (x,z) ∈ R?", font_size=22, color=WHITE_S),
-            MathTex(r"(1,2) \in R \;\land\; (2,1) \in R \Rightarrow (1,1) \in R \;\checkmark", font_size=24, color=WHITE_S),
-            MathTex(r"(3,4) \in R \;\land\; (4,3) \in R \Rightarrow (3,3) \in R \;\checkmark", font_size=24, color=WHITE_S),
-            MathTex(r"(4,3) \in R \;\land\; (3,4) \in R \Rightarrow (4,4) \in R \;\checkmark", font_size=24, color=WHITE_S),
+            Text("¿Si (x,y) ∈ R y (y,z) ∈ R, entonces (x,z) ∈ R?", font_size=26, color=WHITE_S),
+            MathTex(r"(1,2) \in R \;\land\; (2,1) \in R \Rightarrow (1,1) \in R \;\checkmark", font_size=28, color=WHITE_S),
+            MathTex(r"(3,4) \in R \;\land\; (4,3) \in R \Rightarrow (3,3) \in R \;\checkmark", font_size=28, color=WHITE_S),
+            MathTex(r"(4,3) \in R \;\land\; (3,4) \in R \Rightarrow (4,4) \in R \;\checkmark", font_size=28, color=WHITE_S),
             Text(
                 "Todos los pares componibles tienen su compuesto en R.",
-                font_size=20, color=GRAY,
+                font_size=24, color=GRAY,
             ),
-            Text("R es transitiva ✓", font_size=24, color=GREEN_A, weight=BOLD),
-        ).arrange(DOWN, buff=0.18)
+            Text("R es transitiva ✓", font_size=30, color=GREEN_A, weight=BOLD),
+        ).arrange(DOWN, buff=0.22)
         trans.next_to(header, DOWN, buff=0.4)
 
         self.play(FadeIn(trans, shift=UP * 0.2))
@@ -884,16 +884,16 @@ class RelacionesEquivalenciaSlides(Slide):
                 r"\text{Reflexiva } \checkmark \quad "
                 r"\text{Simétrica } \checkmark \quad "
                 r"\text{Transitiva } \checkmark",
-                font_size=28, color=GREEN_A,
+                font_size=34, color=GREEN_A,
             ),
             MathTex(
                 r"\Longrightarrow R \text{ es relación de equivalencia en } A",
-                font_size=28, color=CYAN,
+                font_size=32, color=CYAN,
             ),
-        ).arrange(DOWN, buff=0.3)
-        concl.next_to(header, DOWN, buff=0.5)
+        ).arrange(DOWN, buff=0.4)
+        concl.next_to(header, DOWN, buff=0.6)
 
-        concl_box = SurroundingRectangle(concl, color=CYAN, buff=0.25, corner_radius=0.1)
+        concl_box = SurroundingRectangle(concl, color=CYAN, buff=0.3, corner_radius=0.1)
 
         self.play(FadeIn(concl, shift=UP * 0.2))
         self.play(Create(concl_box))
@@ -907,18 +907,18 @@ class RelacionesEquivalenciaSlides(Slide):
         ))
 
         clases = VGroup(
-            Text("Agrupamos los elementos relacionados entre sí:", font_size=22, color=WHITE_S),
+            Text("Agrupamos los elementos relacionados entre sí:", font_size=26, color=WHITE_S),
             VGroup(
-                MathTex(r"\bar{1} = \{x \in A : x\,R\,1\} = \{1, 2\}", font_size=28, color=WHITE_S),
-                MathTex(r"\bar{2} = \{x \in A : x\,R\,2\} = \{1, 2\}", font_size=28, color=GRAY),
-            ).arrange(DOWN, buff=0.15),
-            MathTex(r"\Rightarrow \bar{1} = \bar{2} = \{1, 2\}", font_size=30, color=CYAN),
+                MathTex(r"\bar{1} = \{x \in A : x\,R\,1\} = \{1, 2\}", font_size=32, color=WHITE_S),
+                MathTex(r"\bar{2} = \{x \in A : x\,R\,2\} = \{1, 2\}", font_size=32, color=GRAY),
+            ).arrange(DOWN, buff=0.18),
+            MathTex(r"\Rightarrow \bar{1} = \bar{2} = \{1, 2\}", font_size=36, color=CYAN),
             VGroup(
-                MathTex(r"\bar{3} = \{x \in A : x\,R\,3\} = \{3, 4\}", font_size=28, color=WHITE_S),
-                MathTex(r"\bar{4} = \{x \in A : x\,R\,4\} = \{3, 4\}", font_size=28, color=GRAY),
-            ).arrange(DOWN, buff=0.15),
-            MathTex(r"\Rightarrow \bar{3} = \bar{4} = \{3, 4\}", font_size=30, color=CYAN),
-        ).arrange(DOWN, buff=0.25)
+                MathTex(r"\bar{3} = \{x \in A : x\,R\,3\} = \{3, 4\}", font_size=32, color=WHITE_S),
+                MathTex(r"\bar{4} = \{x \in A : x\,R\,4\} = \{3, 4\}", font_size=32, color=GRAY),
+            ).arrange(DOWN, buff=0.18),
+            MathTex(r"\Rightarrow \bar{3} = \bar{4} = \{3, 4\}", font_size=36, color=CYAN),
+        ).arrange(DOWN, buff=0.28)
         clases.next_to(header, DOWN, buff=0.35)
 
         self.play(FadeIn(clases, shift=UP * 0.2))
@@ -932,19 +932,19 @@ class RelacionesEquivalenciaSlides(Slide):
         ))
 
         part = VGroup(
-            Text("El conjunto cociente:", font_size=22, color=WHITE_S),
+            Text("El conjunto cociente:", font_size=26, color=WHITE_S),
             MathTex(
                 r"A/R = \big\{\{1,2\},\;\{3,4\}\big\}",
-                font_size=36, color=CYAN,
+                font_size=44, color=CYAN,
             ),
-            Text("Verificamos que es partición:", font_size=22, color=WHITE_S),
+            Text("Verificamos que es partición:", font_size=26, color=WHITE_S),
             MathTex(r"\{1,2\} \neq \emptyset \;\land\; \{3,4\} \neq \emptyset \;\checkmark",
-                    font_size=26, color=GREEN_A),
+                    font_size=30, color=GREEN_A),
             MathTex(r"\{1,2\} \cap \{3,4\} = \emptyset \;\checkmark",
-                    font_size=26, color=GREEN_A),
+                    font_size=30, color=GREEN_A),
             MathTex(r"\{1,2\} \cup \{3,4\} = \{1,2,3,4\} = A \;\checkmark",
-                    font_size=26, color=GREEN_A),
-        ).arrange(DOWN, buff=0.2)
+                    font_size=30, color=GREEN_A),
+        ).arrange(DOWN, buff=0.25)
         part.next_to(header, DOWN, buff=0.35)
 
         part_box = SurroundingRectangle(part[1], color=CYAN, buff=0.2, corner_radius=0.1)
@@ -974,24 +974,24 @@ class RelacionesEquivalenciaSlides(Slide):
         enunc = VGroup(
             Text(
                 "Sea ~ una relación definida en",
-                font_size=26, color=WHITE_S,
+                font_size=30, color=WHITE_S,
             ),
             MathTex(
                 r"\mathbb{Z} \times \mathbb{Z}_0",
-                font_size=40, color=CYAN,
+                font_size=48, color=CYAN,
             ),
-            Text("dada por:", font_size=26, color=WHITE_S),
+            Text("dada por:", font_size=30, color=WHITE_S),
             MathTex(
                 r"(x, y) \sim (z, w) \;\Longleftrightarrow\; x \cdot w = y \cdot z",
-                font_size=38, color=WHITE_S,
+                font_size=42, color=WHITE_S,
             ),
             Text(
                 "Probar que ~ es de equivalencia.\n"
                 "Hallar la clase del elemento (-1, 4).\n"
                 "Mostrar que cada clase se identifica con un racional.",
-                font_size=22, color=GRAY, line_spacing=1.4,
+                font_size=24, color=GRAY, line_spacing=1.4,
             ),
-        ).arrange(DOWN, buff=0.2)
+        ).arrange(DOWN, buff=0.25)
         enunc.next_to(header, DOWN, buff=0.35)
 
         self.play(Write(header))
@@ -999,42 +999,6 @@ class RelacionesEquivalenciaSlides(Slide):
         self.next_slide()
 
         self.play(FadeOut(enunc))
-
-        # ── Intuición ──
-        self.play(header.animate.become(
-            self.header_text("Ej. 32 — Intuición", font_size=32)
-        ))
-
-        intuicion = VGroup(
-            Text(
-                "¿Qué significa xw = yz?",
-                font_size=28, color=YELLOW_A, weight=BOLD,
-            ),
-            Text(
-                "Si pensamos al par (x, y) como la fracción x/y,\n"
-                "entonces xw = yz es lo mismo que:",
-                font_size=26, color=WHITE_S, line_spacing=1.4,
-            ),
-            MathTex(
-                r"\frac{x}{y} = \frac{z}{w}",
-                font_size=48, color=CYAN,
-            ),
-            Text(
-                "Dos pares son equivalentes si representan\n"
-                "la misma fracción.",
-                font_size=26, color=WHITE_S, line_spacing=1.3,
-            ),
-            Text(
-                "Ejemplo: (1,2) ~ (2,4) ~ (3,6) ~ ...  son todos  1/2",
-                font_size=22, color=GRAY,
-            ),
-        ).arrange(DOWN, buff=0.25)
-        intuicion.next_to(header, DOWN, buff=0.35)
-
-        self.play(FadeIn(intuicion, shift=UP * 0.2))
-        self.next_slide()
-
-        self.play(FadeOut(intuicion))
 
         # ── Reflexividad ──
         self.play(header.animate.become(
@@ -1045,19 +1009,19 @@ class RelacionesEquivalenciaSlides(Slide):
             MathTex(
                 r"\forall\,(x,y) \in \mathbb{Z} \times \mathbb{Z}_0,"
                 r"\;\text{¿vale } (x,y) \sim (x,y)\text{ ?}",
-                font_size=32, color=WHITE_S,
+                font_size=36, color=WHITE_S,
             ),
             MathTex(
                 r"(x,y) \sim (x,y) \;\Longleftrightarrow\; x \cdot y = y \cdot x",
-                font_size=34, color=WHITE_S,
+                font_size=40, color=WHITE_S,
             ),
             Text(
                 "Se cumple siempre por la conmutatividad\n"
                 "del producto en los enteros.",
-                font_size=26, color=WHITE_S, line_spacing=1.3,
+                font_size=30, color=WHITE_S, line_spacing=1.3,
             ),
-            Text("~ es reflexiva ✓", font_size=28, color=GREEN_A, weight=BOLD),
-        ).arrange(DOWN, buff=0.3)
+            Text("~ es reflexiva ✓", font_size=34, color=GREEN_A, weight=BOLD),
+        ).arrange(DOWN, buff=0.4)
         ref.next_to(header, DOWN, buff=0.4)
 
         self.play(FadeIn(ref, shift=UP * 0.2))
@@ -1177,17 +1141,17 @@ class RelacionesEquivalenciaSlides(Slide):
                 r"\text{Reflexiva } \checkmark \quad "
                 r"\text{Simétrica } \checkmark \quad "
                 r"\text{Transitiva } \checkmark",
-                font_size=32, color=GREEN_A,
+                font_size=38, color=GREEN_A,
             ),
             MathTex(
                 r"\therefore \;\sim\; \text{ es relación de equivalencia en } "
                 r"\mathbb{Z} \times \mathbb{Z}_0",
-                font_size=30, color=CYAN,
+                font_size=34, color=CYAN,
             ),
-        ).arrange(DOWN, buff=0.3)
-        concl.next_to(header, DOWN, buff=0.5)
+        ).arrange(DOWN, buff=0.4)
+        concl.next_to(header, DOWN, buff=0.6)
 
-        concl_box = SurroundingRectangle(concl, color=CYAN, buff=0.25, corner_radius=0.1)
+        concl_box = SurroundingRectangle(concl, color=CYAN, buff=0.3, corner_radius=0.1)
 
         self.play(FadeIn(concl, shift=UP * 0.2))
         self.play(Create(concl_box))
@@ -1201,30 +1165,35 @@ class RelacionesEquivalenciaSlides(Slide):
         ))
 
         clase = VGroup(
-            MathTex(
-                r"\overline{(-1,4)}", "=",
-                r"\{(x,y) \in \mathbb{Z} \times \mathbb{Z}_0 : (-1) \cdot y = 4 \cdot x\}",
-                font_size=30, color=WHITE_S,
+            Text(
+                "Buscamos todos los pares (x, y) relacionados con (-1, 4):",
+                font_size=22, color=WHITE_S,
             ),
-            Text("Es decir,  y = -4x  con  y ≠ 0  y  x ≠ 0", font_size=26, color=WHITE_S),
             MathTex(
-                r"\therefore\;\overline{(-1,4)} = \{(x, -4x) : x \in \mathbb{Z}_0\}",
-                font_size=34, color=CYAN,
-            ),
-            Text("Algunos elementos:", font_size=26, color=WHITE_S),
-            MathTex(
-                r"\ldots,\; (-2, 8),\; (-1, 4),\; (1, -4),\; (2, -8),\; \ldots",
-                font_size=30, color=WHITE_S,
+                r"(x,y) \sim (-1,4) \;\Longleftrightarrow\; x \cdot 4 = y \cdot (-1)",
+                font_size=28, color=WHITE_S,
             ),
             Text(
-                "Todos representan la fracción  -1/4",
-                font_size=26, color=YELLOW_A,
+                "Despejando:  4x = -y    ⟹    y = -4x",
+                font_size=22, color=WHITE_S,
             ),
-        ).arrange(DOWN, buff=0.2)
-        clase[0][0].set_color(CYAN)
-        clase.next_to(header, DOWN, buff=0.35)
+            Text(
+                "Como y ≠ 0 (el conjunto excluye al 0), entonces x ≠ 0.",
+                font_size=22, color=GRAY,
+            ),
+            MathTex(
+                r"\therefore\;\overline{(-1,4)} = \{(x, -4x) \in \mathbb{Z} \times (\mathbb{Z}\setminus\{0\}) : x \neq 0\}",
+                font_size=28, color=CYAN,
+            ),
+            Text("Algunos elementos:", font_size=22, color=WHITE_S),
+            MathTex(
+                r"(-1, 4),\; (1, -4),\; (2, -8),\; (-2, 8),\; \ldots",
+                font_size=26, color=WHITE_S,
+            ),
+        ).arrange(DOWN, buff=0.18)
+        clase.next_to(header, DOWN, buff=0.3)
 
-        clase_box = SurroundingRectangle(clase[2], color=CYAN, buff=0.2, corner_radius=0.1)
+        clase_box = SurroundingRectangle(clase[4], color=CYAN, buff=0.18, corner_radius=0.1)
 
         self.play(FadeIn(clase, shift=UP * 0.2))
         self.play(Create(clase_box))
@@ -1234,30 +1203,39 @@ class RelacionesEquivalenciaSlides(Slide):
 
         # ── Identificación con los racionales ──
         self.play(header.animate.become(
-            self.header_text("Ej. 32 — Los racionales como cociente", font_size=30)
+            self.header_text("Ej. 32 — Identificación con los racionales", font_size=28)
         ))
 
         racional = VGroup(
-            Text(
-                "Si (x,y) ~ (z,w) entonces xw = yz, lo que implica:",
-                font_size=26, color=WHITE_S,
-            ),
             MathTex(
-                r"\frac{x}{y} = \frac{z}{w}",
-                r"\quad \text{con } y \neq 0 \;\land\; w \neq 0",
-                font_size=38, color=WHITE_S,
+                r"(a,b) \sim (c,d) \;\Longleftrightarrow\; ad = bc",
+                font_size=30, color=WHITE_S,
             ),
             Text(
-                "Cada clase de equivalencia [(x,y)] corresponde\n"
-                "al número racional  x/y",
-                font_size=26, color=WHITE_S, line_spacing=1.3,
+                "Es la propiedad exacta que determina cuándo\n"
+                "dos fracciones son equivalentes:",
+                font_size=22, color=WHITE_S, line_spacing=1.3,
             ),
             MathTex(
-                r"\overline{(x,y)} \;\longleftrightarrow\; \frac{x}{y} \in \mathbb{Q}",
-                font_size=42, color=CYAN,
+                r"\frac{a}{b} = \frac{c}{d} \;\Longleftrightarrow\; ad = bc",
+                font_size=34, color=YELLOW_A,
             ),
-        ).arrange(DOWN, buff=0.25)
-        racional.next_to(header, DOWN, buff=0.4)
+            Text(
+                "Cada clase agrupa a todas las fracciones\n"
+                "que representan el mismo valor.",
+                font_size=22, color=WHITE_S, line_spacing=1.3,
+            ),
+            Text(
+                "Habitualmente se elige a la fracción irreducible\n"
+                "como el representante formal de la clase.",
+                font_size=22, color=GRAY, line_spacing=1.3,
+            ),
+            MathTex(
+                r"\overline{(a,b)} \;\longleftrightarrow\; \frac{a}{b} \in \mathbb{Q}",
+                font_size=36, color=CYAN,
+            ),
+        ).arrange(DOWN, buff=0.2)
+        racional.next_to(header, DOWN, buff=0.3)
 
         self.play(FadeIn(racional, shift=UP * 0.2))
         self.next_slide()
@@ -1268,20 +1246,20 @@ class RelacionesEquivalenciaSlides(Slide):
         final = VGroup(
             Text(
                 "El conjunto cociente es exactamente",
-                font_size=28, color=WHITE_S,
+                font_size=34, color=WHITE_S,
             ),
             MathTex(
                 r"\frac{\mathbb{Z} \times \mathbb{Z}_0}{\sim}",
                 r"\;=\;",
                 r"\mathbb{Q}",
-                font_size=52,
+                font_size=64,
             ),
             Text(
                 "Esta es la construcción formal de los racionales\n"
                 "como conjunto cociente a partir de los enteros.",
-                font_size=26, color=WHITE_S, line_spacing=1.3,
+                font_size=30, color=WHITE_S, line_spacing=1.3,
             ),
-        ).arrange(DOWN, buff=0.3)
+        ).arrange(DOWN, buff=0.4)
         final[1][0].set_color(WHITE_S)
         final[1][2].set_color(CYAN)
         final.next_to(header, DOWN, buff=0.4)
@@ -1356,8 +1334,8 @@ class RelacionesEquivalenciaSlides(Slide):
     # ══════════════════════════════════════════════════════════════
 
     def slide_cierre(self):
-        title = Text("Relaciones de Equivalencia", font_size=40, color=CYAN, weight=BOLD)
-        thanks = Text("¡Gracias!", font_size=36, color=WHITE_S)
+        title = Text("Relaciones de Equivalencia", font_size=52, color=CYAN, weight=BOLD)
+        thanks = Text("¡Gracias!", font_size=48, color=WHITE_S)
         thanks.next_to(title, DOWN, buff=0.5)
 
         line = Line(LEFT * 3, RIGHT * 3, color=BLUE, stroke_width=2)
@@ -1390,5 +1368,4 @@ class RelacionesEquivalenciaSlides(Slide):
         self.slide_ejercicio_32()
 
         # Cierre
-        self.slide_resumen()
         self.slide_cierre()

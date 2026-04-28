@@ -12,6 +12,9 @@ __pycache__/
 **/media/
 **/slides/
 
+# ── PDFs de práctica resueltos (pesados, fuera del repo) ──
+**/practica*resuelta*.pdf
+
 # ── OS ──
 .DS_Store
 Thumbs.db
