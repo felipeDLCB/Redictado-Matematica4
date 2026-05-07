@@ -464,7 +464,7 @@ class NucleoImagenSlides(Slide):
             MathTex(r"\mathrm{Nu}(f) \neq \emptyset \;\;\land\;\;"
                     r"a, b \in \mathrm{Nu}(f) \Rightarrow a \ast b^{-1} \in \mathrm{Nu}(f)",
                     font_size=30, color=WHITE_S),
-            MathTex(r"\therefore\; \mathrm{Nu}(f) \leq G \;\;\blacksquare",
+            MathTex(r"\therefore\; \mathrm{Nu}(f) \leq G \;\;\text{Q.E.D.}",
                     font_size=42, color=CYAN),
         ).arrange(DOWN, buff=0.5)
         concl_a.next_to(header, DOWN, buff=0.7)
@@ -525,7 +525,7 @@ class NucleoImagenSlides(Slide):
             MathTex(r"\mathrm{Im}(f) \neq \emptyset \;\;\land\;\;"
                     r"y_1, y_2 \in \mathrm{Im}(f) \Rightarrow y_1 \circ y_2^{-1} \in \mathrm{Im}(f)",
                     font_size=28, color=WHITE_S),
-            MathTex(r"\therefore\; \mathrm{Im}(f) \leq H \;\;\blacksquare",
+            MathTex(r"\therefore\; \mathrm{Im}(f) \leq H \;\;\text{Q.E.D.}",
                     font_size=42, color=CYAN),
         ).arrange(DOWN, buff=0.5)
         concl_b.next_to(header, DOWN, buff=0.7)
@@ -663,47 +663,7 @@ class NucleoImagenSlides(Slide):
         self.play(FadeOut(VGroup(header, concl, concl_box)))
 
     # ══════════════════════════════════════════════════════════════
-    #  SLIDE 7 — Resumen
-    # ══════════════════════════════════════════════════════════════
-
-    def slide_resumen(self):
-        header = self.header_text("Resumen")
-
-        items = VGroup(
-            VGroup(
-                Text("Núcleo", font_size=26, color=RED_A, weight=BOLD),
-                MathTex(r"\mathrm{Nu}(f) = \{x \in G : f(x) = e_H\}",
-                        font_size=30, color=WHITE_S),
-            ).arrange(DOWN, buff=0.18),
-            VGroup(
-                Text("Imagen", font_size=26, color=GREEN_A, weight=BOLD),
-                MathTex(r"\mathrm{Im}(f) = \{f(x) : x \in G\}",
-                        font_size=30, color=WHITE_S),
-            ).arrange(DOWN, buff=0.18),
-            VGroup(
-                Text("Subgrupos (Ej. 19)", font_size=26, color=CYAN, weight=BOLD),
-                MathTex(r"\mathrm{Nu}(f) \leq G \quad \mathrm{Im}(f) \leq H",
-                        font_size=30, color=WHITE_S),
-            ).arrange(DOWN, buff=0.18),
-            VGroup(
-                Text("Test de inyectividad (Ej. 22)", font_size=26, color=YELLOW_A, weight=BOLD),
-                MathTex(r"f \text{ monomorfismo} \Leftrightarrow \mathrm{Nu}(f) = \{e_G\}",
-                        font_size=28, color=WHITE_S),
-            ).arrange(DOWN, buff=0.18),
-        ).arrange(DOWN, buff=0.5, aligned_edge=LEFT)
-        items.next_to(header, DOWN, buff=0.5)
-
-        self.play(Write(header))
-        self.play(
-            LaggedStart(*[FadeIn(it, shift=UP * 0.3) for it in items], lag_ratio=0.25),
-            run_time=2.5,
-        )
-        self.next_slide()
-
-        self.play(FadeOut(VGroup(header, items)))
-
-    # ══════════════════════════════════════════════════════════════
-    #  SLIDE 8 — Cierre
+    #  SLIDE 7 — Cierre
     # ══════════════════════════════════════════════════════════════
 
     def slide_cierre(self):
@@ -729,5 +689,4 @@ class NucleoImagenSlides(Slide):
         self.slide_definicion_imagen()
         self.slide_ejercicio_19()
         self.slide_ejercicio_22()
-        self.slide_resumen()
         self.slide_cierre()
