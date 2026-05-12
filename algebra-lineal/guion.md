@@ -8,47 +8,53 @@ Buenas. Hoy vemos **Independencia Lineal**, dentro de espacios vectoriales. Es u
 
 ---
 
-## Slide 2 — Motivación
+## Slide 2 — Motivación: la idea de redundancia
 
-Antes de la definición formal, la idea.
+Antes de cualquier definición formal, la intuición. Quiero que entendamos **qué problema estamos resolviendo**.
 
-Cuando trabajamos con un espacio vectorial V, buscamos describirlo con la **menor cantidad posible de vectores**. La pregunta natural es: ¿cuándo un vector del conjunto está "de más"?
+Miremos este conjunto en R²: S = {(2,1), (1,-2), (1,3)}.
 
-Veamos un ejemplo concreto. Tomemos el conjunto S formado por (2,1), (1,-2) y (1,3) en R².
+Si observamos un momento, notamos que (1,-2) + (1,3) = (2,1). Es decir, el primer vector lo podemos armar sumando los otros dos.
 
-Si miramos con atención, notamos que (2,1) es exactamente la suma de los otros dos: (1,-2) + (1,3) = (2,1).
+Entonces (2,1) **no aporta nada nuevo**. Cualquier combinación que armemos con los tres vectores, la armamos también con solo dos. Está **de más**. Es redundante.
 
-Entonces (2,1) **no aporta información nueva**. Cualquier cosa que pudiéramos generar con los tres vectores, la generamos solo con dos. Es redundante.
-
-Esta noción de "redundancia" es lo que vamos a formalizar.
+Y acá viene la pregunta clave: ¿cómo formalizamos esta idea de "redundancia"? Necesitamos una manera precisa, algebraica, de detectarla.
 
 → siguiente
 
 ---
 
-## Slide 3 — Definición de Dependencia Lineal
+## Slide 3 — La combinación lineal nula
 
-Decimos que los vectores v₁, v₂, …, vᵣ son **linealmente dependientes** si existen escalares c₁, c₂, …, cᵣ **no todos nulos** tales que:
+Esta es la slide bisagra. El concepto que une todo lo que viene.
+
+Dados vectores v₁, v₂, …, vᵣ y escalares c₁, c₂, …, cᵣ, miramos cuándo se cumple:
 
 c₁v₁ + c₂v₂ + … + cᵣvᵣ = 0
 
-La clave está en "no todos nulos". Existe una combinación lineal **no trivial** que da el vector nulo. Es decir, podemos llegar al cero usando coeficientes que no sean todos cero.
+Primera observación importante: esta ecuación **siempre tiene al menos una solución**. ¿Cuál? La **solución trivial**: tomar todos los coeficientes iguales a cero. 0·v₁ + 0·v₂ + … + 0·vᵣ = 0. Trivialmente da cero. Pero esa solución no nos dice nada de los vectores — funciona siempre, para cualquier conjunto.
 
-Volviendo al ejemplo anterior: (2,1) - (1,-2) - (1,3) = 0. Coeficientes 1, -1, -1 — no todos nulos. Por lo tanto, el conjunto es linealmente dependiente.
+Entonces la pregunta interesante, **la pregunta clave**, es esta: ¿existe **otra** solución? ¿Existe alguna combinación **no trivial** — con al menos un coeficiente distinto de cero — que también dé el vector nulo?
+
+Esa pregunta es la que separa los dos casos. Y esos dos casos son las dos definiciones que vienen.
 
 → siguiente
 
 ---
 
-## Slide 4 — Definición de Independencia Lineal
+## Slide 4 — LD vs LI: el contraste
 
-La definición opuesta. Los vectores son **linealmente independientes** si la única forma de obtener el vector nulo como combinación lineal es con **todos los coeficientes iguales a cero**.
+Ahora sí, las dos definiciones, **lado a lado**, sobre el mismo eje.
 
-Es decir: c₁v₁ + … + cᵣvᵣ = 0 implica c₁ = c₂ = … = cᵣ = 0.
+La pregunta de la slide anterior era: ¿existe combinación nula no trivial?
 
-La clave: la **única** combinación que da nulo es la trivial. No hay forma de "cancelar" entre sí los vectores con coeficientes no nulos.
+**Si la respuesta es SÍ** — existen coeficientes no todos nulos tales que Σcᵢvᵢ = 0 — entonces los vectores son **linealmente dependientes**. Y eso significa que hay redundancia: alguno se puede escribir en función de los otros.
 
-Esta es la propiedad que queremos: ningún vector es redundante, todos aportan algo.
+**Si la respuesta es NO** — la única manera de que Σcᵢvᵢ = 0 es que todos los cᵢ sean cero — entonces los vectores son **linealmente independientes**. Ninguno es redundante, todos aportan.
+
+Fíjense: la fórmula c₁v₁ + … + cᵣvᵣ = 0 aparece en ambos casos. **Es la misma ecuación**. Lo que cambia es la respuesta a la pregunta sobre sus soluciones. Esa es la verdadera distinción.
+
+Volviendo al ejemplo de la slide 2: (1)·(2,1) + (-1)·(1,-2) + (-1)·(1,3) = 0. Coeficientes 1, -1, -1 — no todos nulos. Combinación no trivial. Por lo tanto, ese conjunto es linealmente dependiente.
 
 → siguiente
 

@@ -84,140 +84,153 @@ class IndependenciaLinealSlides(Slide):
     # ══════════════════════════════════════════════════════════════
 
     def slide_motivacion(self):
-        section = self.section_title("Motivación", "¿Por qué nos importa?")
+        section = self.section_title("Motivación", "La idea de redundancia")
         self.play(FadeIn(section, shift=DOWN * 0.3))
         self.next_slide()
         self.play(FadeOut(section))
 
-        header = self.header_text("Buscamos un generador mínimo")
+        header = self.header_text("¿Cuándo un vector está \"de más\"?")
         self.play(FadeIn(header, shift=DOWN * 0.2))
 
-        idea = VGroup(
-            Text("Dado un espacio vectorial V, queremos describirlo", font_size=24, color=WHITE_S),
-            Text("con la menor cantidad posible de vectores.", font_size=24, color=WHITE_S),
-        ).arrange(DOWN, buff=0.2)
-        idea.next_to(header, DOWN, buff=0.6)
-        self.play(FadeIn(idea, shift=UP * 0.2))
-        self.next_slide()
-
-        pregunta = Text(
-            "¿Cuándo un vector del conjunto es redundante?",
-            font_size=26, color=YELLOW_A, weight=BOLD,
-        )
-        pregunta.next_to(idea, DOWN, buff=0.6)
-        self.play(FadeIn(pregunta))
-        self.next_slide()
-
         ejemplo = MathTex(
-            r"S = \{(2,1),\ (1,-2),\ (1,3)\}",
-            font_size=34, color=WHITE_S,
+            r"S = \{(2,1),\ (1,-2),\ (1,3)\} \subset \mathbb{R}^2",
+            font_size=36, color=WHITE_S,
         )
-        ejemplo.next_to(pregunta, DOWN, buff=0.5)
+        ejemplo.next_to(header, DOWN, buff=0.7)
         self.play(Write(ejemplo))
         self.next_slide()
 
         observ = MathTex(
-            r"(2,1) = (1,-2) + (1,3)",
-            font_size=32, color=ORANGE,
+            r"(1,-2) + (1,3) = (2,1)",
+            font_size=34, color=ORANGE,
         )
-        observ.next_to(ejemplo, DOWN, buff=0.3)
+        observ.next_to(ejemplo, DOWN, buff=0.5)
         self.play(Write(observ))
         self.next_slide()
 
         conclu = Text(
-            "→ (2,1) es redundante. Está \"de más\".",
-            font_size=24, color=GREEN_A,
+            "(2,1) no aporta nada nuevo: es redundante.",
+            font_size=26, color=GREEN_A,
         )
-        conclu.next_to(observ, DOWN, buff=0.3)
+        conclu.next_to(observ, DOWN, buff=0.5)
         self.play(FadeIn(conclu, shift=UP * 0.2))
         self.next_slide()
 
-        self.play(FadeOut(VGroup(header, idea, pregunta, ejemplo, observ, conclu)))
+        pivote = Text(
+            "¿Cómo formalizamos esto?",
+            font_size=28, color=YELLOW_A, weight=BOLD,
+        )
+        pivote.next_to(conclu, DOWN, buff=0.7)
+        self.play(FadeIn(pivote))
+        self.next_slide()
+
+        self.play(FadeOut(VGroup(header, ejemplo, observ, conclu, pivote)))
 
     # ══════════════════════════════════════════════════════════════
-    #  SLIDE 3 — Definición LD
+    #  SLIDE 3 — La combinación lineal nula (concepto bisagra)
     # ══════════════════════════════════════════════════════════════
 
-    def slide_def_ld(self):
-        section = self.section_title("Definición", "Dependencia Lineal")
+    def slide_concepto_nula(self):
+        section = self.section_title("La combinación lineal nula", "El concepto clave")
         self.play(FadeIn(section, shift=DOWN * 0.3))
         self.next_slide()
         self.play(FadeOut(section))
 
-        header = self.header_text("Vectores Linealmente Dependientes")
+        header = self.header_text("¿Cuándo una combinación da el vector nulo?")
         self.play(FadeIn(header, shift=DOWN * 0.2))
 
-        defi = VGroup(
-            Text("Los vectores", font_size=26, color=WHITE_S),
-            MathTex(r"v_1, v_2, \ldots, v_r", font_size=34, color=CYAN),
-            Text("son linealmente dependientes si", font_size=26, color=WHITE_S),
-        ).arrange(RIGHT, buff=0.25)
-        defi.next_to(header, DOWN, buff=0.6)
-        self.play(FadeIn(defi))
+        setup = MathTex(
+            r"v_1, v_2, \ldots, v_r \in V \quad \text{y escalares} \quad c_1, c_2, \ldots, c_r",
+            font_size=30, color=WHITE_S,
+        )
+        setup.next_to(header, DOWN, buff=0.6)
+        self.play(FadeIn(setup))
         self.next_slide()
 
         formula = MathTex(
-            r"\exists\ c_1, c_2, \ldots, c_r \ \text{no todos nulos}\ :\ ",
             r"c_1 v_1 + c_2 v_2 + \cdots + c_r v_r = 0",
-            font_size=32, color=WHITE_S,
+            font_size=38, color=CYAN,
         )
-        formula[1].set_color(YELLOW_A)
-        formula.next_to(defi, DOWN, buff=0.5)
+        formula.next_to(setup, DOWN, buff=0.5)
         self.play(Write(formula))
         self.next_slide()
 
-        clave = Text(
-            "Clave: existe combinación NO trivial que da el vector nulo.",
-            font_size=24, color=ORANGE, weight=BOLD,
-        )
-        clave.next_to(formula, DOWN, buff=0.6)
-        self.play(FadeIn(clave, shift=UP * 0.2))
-        self.next_slide()
-
-        self.play(FadeOut(VGroup(header, defi, formula, clave)))
-
-    # ══════════════════════════════════════════════════════════════
-    #  SLIDE 4 — Definición LI
-    # ══════════════════════════════════════════════════════════════
-
-    def slide_def_li(self):
-        section = self.section_title("Definición", "Independencia Lineal")
-        self.play(FadeIn(section, shift=DOWN * 0.3))
-        self.next_slide()
-        self.play(FadeOut(section))
-
-        header = self.header_text("Vectores Linealmente Independientes")
-        self.play(FadeIn(header, shift=DOWN * 0.2))
-
-        defi = VGroup(
-            Text("Los vectores", font_size=26, color=WHITE_S),
-            MathTex(r"v_1, v_2, \ldots, v_r", font_size=34, color=CYAN),
-            Text("son linealmente independientes si", font_size=26, color=WHITE_S),
-        ).arrange(RIGHT, buff=0.25)
-        defi.next_to(header, DOWN, buff=0.6)
-        self.play(FadeIn(defi))
-        self.next_slide()
-
-        formula = MathTex(
-            r"c_1 v_1 + c_2 v_2 + \cdots + c_r v_r = 0",
-            r"\ \Longrightarrow\ ",
+        trivial_label = Text("Solución trivial:", font_size=24, color=GRAY)
+        trivial_eq = MathTex(
             r"c_1 = c_2 = \cdots = c_r = 0",
-            font_size=32, color=WHITE_S,
+            font_size=30, color=GRAY,
         )
-        formula[2].set_color(GREEN_A)
-        formula.next_to(defi, DOWN, buff=0.5)
-        self.play(Write(formula))
+        trivial_note = Text(
+            "(siempre funciona — no dice nada del conjunto)",
+            font_size=20, color=GRAY,
+        )
+        trivial_group = VGroup(trivial_label, trivial_eq, trivial_note).arrange(DOWN, buff=0.15)
+        trivial_group.next_to(formula, DOWN, buff=0.5)
+        self.play(FadeIn(trivial_group, shift=UP * 0.2))
         self.next_slide()
 
-        clave = Text(
-            "Clave: la ÚNICA combinación nula es la trivial.",
-            font_size=24, color=GREEN_A, weight=BOLD,
+        pregunta = Text(
+            "Pregunta clave: ¿existe alguna solución NO trivial?",
+            font_size=26, color=YELLOW_A, weight=BOLD,
         )
-        clave.next_to(formula, DOWN, buff=0.6)
-        self.play(FadeIn(clave, shift=UP * 0.2))
+        pregunta.next_to(trivial_group, DOWN, buff=0.5)
+        self.play(FadeIn(pregunta))
         self.next_slide()
 
-        self.play(FadeOut(VGroup(header, defi, formula, clave)))
+        self.play(FadeOut(VGroup(header, setup, formula, trivial_group, pregunta)))
+
+    # ══════════════════════════════════════════════════════════════
+    #  SLIDE 4 — LD vs LI: el contraste
+    # ══════════════════════════════════════════════════════════════
+
+    def slide_ld_li_contraste(self):
+        section = self.section_title(
+            "Dependencia vs Independencia Lineal",
+            "Dos respuestas a la misma pregunta",
+        )
+        self.play(FadeIn(section, shift=DOWN * 0.3))
+        self.next_slide()
+        self.play(FadeOut(section))
+
+        header = self.header_text("¿Existe combinación nula no trivial?")
+        self.play(FadeIn(header, shift=DOWN * 0.2))
+
+        divider = Line(UP * 2.5, DOWN * 2.5, color=GRAY, stroke_width=1)
+        divider.set_y(-0.3)
+
+        # ── Columna izquierda: LD ─────────────────────────────────
+        ld_title = Text("SÍ", font_size=40, color=ORANGE, weight=BOLD)
+        ld_label = Text("Linealmente Dependientes", font_size=22, color=ORANGE, weight=BOLD)
+        ld_formula = MathTex(
+            r"\exists\, c_i\ \text{no todos } 0\, :",
+            r"\sum c_i v_i = 0",
+            font_size=26, color=WHITE_S,
+        )
+        ld_formula.arrange(DOWN, buff=0.2)
+        ld_meaning = Text("hay redundancia", font_size=22, color=ORANGE)
+
+        ld_col = VGroup(ld_title, ld_label, ld_formula, ld_meaning).arrange(DOWN, buff=0.35)
+        ld_col.move_to(LEFT * 3.3 + DOWN * 0.3)
+
+        # ── Columna derecha: LI ───────────────────────────────────
+        li_title = Text("NO", font_size=40, color=GREEN_A, weight=BOLD)
+        li_label = Text("Linealmente Independientes", font_size=22, color=GREEN_A, weight=BOLD)
+        li_formula = MathTex(
+            r"\sum c_i v_i = 0",
+            r"\Longrightarrow\ \text{todos } c_i = 0",
+            font_size=26, color=WHITE_S,
+        )
+        li_formula.arrange(DOWN, buff=0.2)
+        li_meaning = Text("ningún redundante", font_size=22, color=GREEN_A)
+
+        li_col = VGroup(li_title, li_label, li_formula, li_meaning).arrange(DOWN, buff=0.35)
+        li_col.move_to(RIGHT * 3.3 + DOWN * 0.3)
+
+        self.play(Create(divider))
+        self.play(FadeIn(ld_col, shift=RIGHT * 0.2), FadeIn(li_col, shift=LEFT * 0.2))
+        self.next_slide()
+
+        self.play(FadeOut(VGroup(header, divider, ld_col, li_col)))
 
     # ══════════════════════════════════════════════════════════════
     #  SLIDE 5 — Teorema: vector nulo → LD
@@ -499,7 +512,7 @@ class IndependenciaLinealSlides(Slide):
         self.next_slide()
 
         verif = Text("Verificación explícita:", font_size=24, color=CYAN, weight=BOLD)
-        verif.next_to(teo, DOWN, buff=0.5).align_to(observ, LEFT)
+        verif.next_to(teo, DOWN, buff=0.5)
         self.play(FadeIn(verif))
 
         eq = MathTex(
@@ -551,8 +564,8 @@ class IndependenciaLinealSlides(Slide):
     def construct(self):
         self.slide_titulo()
         self.slide_motivacion()
-        self.slide_def_ld()
-        self.slide_def_li()
+        self.slide_concepto_nula()
+        self.slide_ld_li_contraste()
         self.slide_teo_nulo()
         self.slide_teo_unicidad()
         self.slide_teo_120()
